@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bcj8sh057ewla"]
+
+[ext_resource type="Texture2D" uid="uid://b7slk3x26yrwu" path="res://Models/WindBlade_WINDBLADE.png" id="1_7d708"]
+[ext_resource type="Texture2D" uid="uid://jsxi788aub0o" path="res://Textures/WindBlade/WINDBLADE.DTX.OCC.png" id="2_4pw4y"]
+
+[resource]
+albedo_texture = ExtResource("1_7d708")
+metallic = 1.0
+metallic_texture = ExtResource("2_4pw4y")
+roughness = 0.5
+ao_enabled = true
+ao_light_affect = 1.0
+ao_texture = ExtResource("2_4pw4y")

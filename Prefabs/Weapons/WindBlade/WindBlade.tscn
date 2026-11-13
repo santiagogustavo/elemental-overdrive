@@ -1,0 +1,276 @@
+[gd_scene format=3 uid="uid://bu0jj67wgryoc"]
+
+[ext_resource type="Script" uid="uid://busy6rbb605wt" path="res://Scripts/Weapon.gd" id="1_spahc"]
+[ext_resource type="PackedScene" uid="uid://d1jor874otgxg" path="res://Prefabs/Weapons/WindBlade/WindBladeBullet.tscn" id="2_71n3c"]
+[ext_resource type="PackedScene" uid="uid://ccykrc2giv0fo" path="res://Models/WindBlade.glb" id="2_aaeq6"]
+[ext_resource type="Animation" uid="uid://k5l1cm4btxwe" path="res://Animations/Weapons/WindBlade/AmbA.res" id="3_turqq"]
+[ext_resource type="Texture2D" uid="uid://uw4hpimcmm2w" path="res://Textures/muzzle2.png" id="4_6lmsv"]
+[ext_resource type="Animation" uid="uid://dpyviq2vc0rhv" path="res://Animations/Weapons/WindBlade/AmbC.res" id="4_hr7gp"]
+[ext_resource type="Animation" uid="uid://8mgy1i18revg" path="res://Animations/Weapons/WindBlade/Attack.res" id="5_wweai"]
+[ext_resource type="Animation" uid="uid://csp4i24ouh7xx" path="res://Animations/Weapons/WindBlade/Away.res" id="6_71n3c"]
+[ext_resource type="Animation" uid="uid://wdumq6u1q3pf" path="res://Animations/Weapons/WindBlade/Ready.res" id="7_6lmsv"]
+[ext_resource type="Animation" uid="uid://cwtx0rrcokjdy" path="res://Animations/Weapons/WindBlade/Static.res" id="8_86v0f"]
+[ext_resource type="AudioStream" uid="uid://cym4jjma64yof" path="res://Sounds/Weapons/WindBlade/READY.WAV" id="9_hr7gp"]
+[ext_resource type="AudioStream" uid="uid://bm3qd3gk6pkls" path="res://Sounds/Weapons/WindBlade/ATTACK.WAV" id="10_wweai"]
+
+[sub_resource type="Curve" id="Curve_86v0f"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.8), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_1c1i0"]
+curve = SubResource("Curve_86v0f")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pypy6"]
+angle_min = 1.0728835e-05
+angle_max = 360.00003
+gravity = Vector3(0, 0, 0)
+scale_min = 0.9
+scale_max = 1.15
+alpha_curve = SubResource("CurveTexture_1c1i0")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xwula"]
+transparency = 4
+cull_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.7647059, 1, 1, 1)
+albedo_texture = ExtResource("4_6lmsv")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+proximity_fade_enabled = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_cp41u"]
+material = SubResource("StandardMaterial3D_xwula")
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="Animation" id="Animation_wweai"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Attack:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Ready:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WINDBLADE/Skeleton3D/Muzzle:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jq43w"]
+_data = {
+&"AmbA": ExtResource("3_turqq"),
+&"AmbC": ExtResource("4_hr7gp"),
+&"Attack": ExtResource("5_wweai"),
+&"Away": ExtResource("6_71n3c"),
+&"RESET": SubResource("Animation_wweai"),
+&"Ready": ExtResource("7_6lmsv"),
+&"Static": ExtResource("8_86v0f")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_71n3c"]
+animation = &"Away"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6lmsv"]
+animation = &"AmbA"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_86v0f"]
+animation = &"AmbC"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pypy6"]
+animation = &"Attack"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_cp41u"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_pypy6"]
+graph_offset = Vector2(-688.8182, 172.18181)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_cp41u")
+nodes/TimeScale/position = Vector2(-20, 140)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_pypy6")
+nodes/Animation/position = Vector2(-335, 217)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cp41u"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_s6v1x"]
+break_loop_at_end = true
+advance_mode = 2
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mh1ad"]
+break_loop_at_end = true
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_not_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_k7sfo"]
+break_loop_at_end = true
+advance_mode = 2
+advance_condition = &"ambience"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mli64"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wweai"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_wweai"]
+states/AmbA/node = SubResource("AnimationNodeAnimation_6lmsv")
+states/AmbA/position = Vector2(523, 220)
+states/AmbC/node = SubResource("AnimationNodeAnimation_86v0f")
+states/AmbC/position = Vector2(523, 100)
+states/Attack/node = SubResource("AnimationNodeBlendTree_pypy6")
+states/Attack/position = Vector2(523, -35)
+transitions = ["Start", "AmbC", SubResource("AnimationNodeStateMachineTransition_cp41u"), "AmbC", "Attack", SubResource("AnimationNodeStateMachineTransition_s6v1x"), "Attack", "AmbC", SubResource("AnimationNodeStateMachineTransition_mh1ad"), "AmbC", "AmbA", SubResource("AnimationNodeStateMachineTransition_k7sfo"), "AmbA", "AmbC", SubResource("AnimationNodeStateMachineTransition_mli64"), "AmbA", "Attack", SubResource("AnimationNodeStateMachineTransition_wweai")]
+graph_offset = Vector2(-61, 1)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wweai"]
+animation = &"Ready"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_71n3c"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6lmsv"]
+advance_mode = 2
+advance_condition = &"draw"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_86v0f"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pypy6"]
+advance_mode = 2
+advance_condition = &"holster"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0i88t"]
+states/Away/node = SubResource("AnimationNodeAnimation_71n3c")
+states/Away/position = Vector2(448, -42)
+states/Idle/node = SubResource("AnimationNodeStateMachine_wweai")
+states/Idle/position = Vector2(665, 100)
+states/Ready/node = SubResource("AnimationNodeAnimation_wweai")
+states/Ready/position = Vector2(448, 100)
+transitions = ["Start", "Ready", SubResource("AnimationNodeStateMachineTransition_71n3c"), "Away", "Ready", SubResource("AnimationNodeStateMachineTransition_6lmsv"), "Ready", "Idle", SubResource("AnimationNodeStateMachineTransition_86v0f"), "Idle", "Away", SubResource("AnimationNodeStateMachineTransition_pypy6")]
+graph_offset = Vector2(16, -104)
+
+[node name="WindBlade" type="Node3D" unique_id=1902154108 node_paths=PackedStringArray("muzzle_node")]
+script = ExtResource("1_spahc")
+bullet_prefab = ExtResource("2_71n3c")
+muzzle_node = NodePath("WindBlade/WINDBLADE/Skeleton3D/Muzzle")
+metadata/_custom_type_script = "uid://busy6rbb605wt"
+
+[node name="WindBlade" parent="." unique_id=1674440480 instance=ExtResource("2_aaeq6")]
+transform = Transform3D(-1, 0, 0, 0, 1, -8.742278e-08, 0, 8.742278e-08, 1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="WindBlade/WINDBLADE" parent_id_path=PackedInt32Array(1674440480, 998655996) index="0" unique_id=170718963]
+bones/1/position = Vector3(0.3399993, -0.24499929, -0.07250127)
+bones/1/rotation = Quaternion(-0.038945843, -0.10394496, -0.045863677, 0.99276143)
+bones/2/rotation = Quaternion(0.09639268, 0.022192264, -0.01591891, 0.9949686)
+bones/4/position = Vector3(-0.0024999816, 0.08750003, 0.13249993)
+bones/5/position = Vector3(-0.041133747, 0.047500025, 0.13249998)
+bones/6/position = Vector3(-0.07254433, 0.025000034, 0.13249995)
+bones/7/position = Vector3(-0.092000015, -0.0074999887, 0.13249998)
+bones/8/position = Vector3(-0.0902594, -0.047500018, 0.13250001)
+bones/10/position = Vector3(-3.0174853e-08, 0.1, 0.027500018)
+
+[node name="Piece" parent="WindBlade/WINDBLADE/Skeleton3D" index="0" unique_id=206033817]
+layers = 2
+
+[node name="Muzzle" type="BoneAttachment3D" parent="WindBlade/WINDBLADE/Skeleton3D" index="1" unique_id=1257790608]
+transform = Transform3D(0.97418386, 0.101278305, -0.2017632, 0.2099575, -0.07800353, 0.9745942, 0.08296698, -0.99179536, -0.097253956, 0.24563274, 0.44234473, 0.050158188)
+visible = false
+bone_name = "#muzzle"
+bone_idx = 9
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="WindBlade/WINDBLADE/Skeleton3D/Muzzle" unique_id=449914657]
+transform = Transform3D(1.0000001, 1.8626451e-09, -1.4901161e-08, 1.8626451e-09, 1, -1.4901161e-08, 0, 0, 1, 0, 0, 0)
+layers = 2
+amount = 1
+lifetime = 0.1
+randomness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_pypy6")
+draw_pass_1 = SubResource("QuadMesh_cp41u")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="WindBlade/WINDBLADE/Skeleton3D/Muzzle/GPUParticles3D" unique_id=856246449]
+transform = Transform3D(0.9999999, 0, 0, -1.8626451e-09, 0.99999994, 2.9802322e-08, 0, 0, 0.99999994, 0, 0, 0)
+light_color = Color(0.6431373, 1, 1, 1)
+light_energy = 10.0
+shadow_enabled = true
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="WindBlade/WINDBLADE/Skeleton3D/Muzzle/GPUParticles3D" unique_id=1658435184]
+transform = Transform3D(0.9999999, 3.7252903e-09, 0, -1.8626451e-09, 0.99999994, 1.4901161e-08, 0, 0, 0.99999994, -0.73381674, 0.32518518, -0.0040340424)
+layers = 2
+light_color = Color(0.6431373, 1, 1, 1)
+light_energy = 10.0
+light_cull_mask = 4293918722
+shadow_enabled = true
+
+[node name="AnimationPlayerCustom" type="AnimationPlayer" parent="WindBlade" unique_id=1083221827]
+libraries/ = SubResource("AnimationLibrary_jq43w")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1604588338]
+root_node = NodePath("../WindBlade")
+callback_mode_discrete = 0
+tree_root = SubResource("AnimationNodeStateMachine_0i88t")
+anim_player = NodePath("../WindBlade/AnimationPlayerCustom")
+parameters/conditions/draw = false
+parameters/conditions/holster = false
+parameters/Idle/conditions/ambience = false
+parameters/Idle/conditions/is_attacking = false
+parameters/Idle/conditions/is_not_attacking = false
+parameters/Idle/Attack/TimeScale/scale = 1.0
+
+[node name="Ready" type="AudioStreamPlayer3D" parent="." unique_id=1839933908]
+stream = ExtResource("9_hr7gp")
+bus = &"Effects"
+
+[node name="Attack" type="AudioStreamPlayer3D" parent="." unique_id=1207700830]
+stream = ExtResource("10_wweai")
+bus = &"Effects"
+
+[editable path="WindBlade"]

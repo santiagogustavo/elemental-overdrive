@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cxqy5rww4dcyd"]
+
+[ext_resource type="AudioStream" uid="uid://7x724ikwnr4j" path="res://Sounds/Weapons/ZeroCannon/METALHIT1.WAV" id="1_kpfxh"]
+[ext_resource type="AudioStream" uid="uid://bqk7nuladnttt" path="res://Sounds/Weapons/ZeroCannon/METALHIT2.WAV" id="2_akgx2"]
+[ext_resource type="AudioStream" uid="uid://criigbalsm623" path="res://Sounds/Weapons/ZeroCannon/METALHIT3.WAV" id="3_skudu"]
+[ext_resource type="AudioStream" uid="uid://c5vmbdyi0653f" path="res://Sounds/Weapons/ZeroCannon/METALHIT3OLD.WAV" id="4_o31ff"]
+[ext_resource type="AudioStream" uid="uid://bsu0i7dnjiwhk" path="res://Sounds/Weapons/ZeroCannon/METALHIT4.WAV" id="5_07tvl"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1448m"]
+streams_count = 5
+stream_0/stream = ExtResource("1_kpfxh")
+stream_1/stream = ExtResource("2_akgx2")
+stream_2/stream = ExtResource("3_skudu")
+stream_3/stream = ExtResource("4_o31ff")
+stream_4/stream = ExtResource("5_07tvl")
+
+[node name="MetalHit" type="AudioStreamPlayer3D" unique_id=731540104]
+stream = SubResource("AudioStreamRandomizer_1448m")
+bus = &"Effects"

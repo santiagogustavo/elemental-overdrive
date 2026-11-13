@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cp5i5hvpl7n3w"]
+
+[ext_resource type="AudioStream" uid="uid://dq138ix8m8jqn" path="res://Sounds/Weapons/ZeroCannon/WATERHIT1.WAV" id="1_m4owl"]
+[ext_resource type="AudioStream" uid="uid://cxu7q05fw4ts4" path="res://Sounds/Weapons/ZeroCannon/WATERHIT2.WAV" id="2_hms5w"]
+[ext_resource type="AudioStream" uid="uid://bwkoseo06x1e5" path="res://Sounds/Weapons/ZeroCannon/WATERHIT3.WAV" id="3_381wd"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_37rlw"]
+streams_count = 3
+stream_0/stream = ExtResource("1_m4owl")
+stream_1/stream = ExtResource("2_hms5w")
+stream_2/stream = ExtResource("3_381wd")
+
+[node name="WaterHit" type="AudioStreamPlayer3D" unique_id=847069402]
+stream = SubResource("AudioStreamRandomizer_37rlw")
+bus = &"Effects"

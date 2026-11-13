@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://cqvjsqdkreq0p"]
+
+[ext_resource type="Script" uid="uid://b6pqfdjegvpem" path="res://Scripts/Player.gd" id="1_rpqav"]
+[ext_resource type="PackedScene" uid="uid://jrh8bxx85g2q" path="res://Prefabs/Player/PlayerHUD.tscn" id="2_b43ah"]
+[ext_resource type="PackedScene" uid="uid://crmjv8h543r11" path="res://Prefabs/Weapons/MagmaCannon/MagmaCannon.tscn" id="2_shmu5"]
+[ext_resource type="PackedScene" uid="uid://bfwaxjgw2t3l7" path="res://Prefabs/Weapons/ZeroCannon/ZeroCannon.tscn" id="2_vxq8l"]
+[ext_resource type="PackedScene" uid="uid://bu0jj67wgryoc" path="res://Prefabs/Weapons/WindBlade/WindBlade.tscn" id="4_vxq8l"]
+[ext_resource type="PackedScene" uid="uid://b12p7hgdlx5je" path="res://Prefabs/Weapons/Scourge/Scourge.tscn" id="5_gg3t4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0i88t"]
+resource_local_to_scene = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ckb4l"]
+shading_mode = 0
+disable_ambient_light = true
+albedo_color = Color(1, 0, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_0i88t"]
+material = SubResource("StandardMaterial3D_ckb4l")
+radius = 0.1
+height = 0.2
+
+[node name="Player" type="CharacterBody3D" unique_id=680674564]
+collision_mask = 2
+script = ExtResource("1_rpqav")
+available_weapons = Array[PackedScene]([ExtResource("2_vxq8l"), ExtResource("2_shmu5"), ExtResource("4_vxq8l"), ExtResource("5_gg3t4")])
+
+[node name="PlayerHUD" parent="." unique_id=642078767 instance=ExtResource("2_b43ah")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1430185773]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_0i88t")
+
+[node name="WorldCamera" type="Camera3D" parent="." unique_id=1488525097]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+cull_mask = 1048573
+fov = 95.0
+
+[node name="TargetRaycast" type="RayCast3D" parent="WorldCamera" unique_id=333854072]
+target_position = Vector3(0, 0, -100)
+collision_mask = 3
+collide_with_areas = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldCamera/TargetRaycast" unique_id=306592902]
+visible = false
+mesh = SubResource("SphereMesh_0i88t")
+
+[node name="WeaponContainer" type="SubViewportContainer" parent="." unique_id=1408227996]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="WeaponContainer" unique_id=123261832]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="WeaponCamera" type="Camera3D" parent="WeaponContainer/SubViewport" unique_id=1784419756]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+cull_mask = 2

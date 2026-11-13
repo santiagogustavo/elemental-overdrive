@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://bjm7m8dar3cha"]
+
+[ext_resource type="Texture2D" uid="uid://crpet1tfu5g52" path="res://Textures/CT_BRICKFLOOR1.DTX.png" id="1_iualk"]
+[ext_resource type="PackedScene" uid="uid://cqvjsqdkreq0p" path="res://Prefabs/Player.tscn" id="2_exwnq"]
+[ext_resource type="Texture2D" uid="uid://dp38d0qde2ci3" path="res://Textures/CT_TILECRUMBLE1A.DTX.png" id="3_eqbnc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xtv6o"]
+albedo_texture = ExtResource("1_iualk")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_xtv6o"]
+material = SubResource("StandardMaterial3D_xtv6o")
+size = Vector3(50, 0.1, 50)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_exwnq"]
+data = PackedVector3Array(-25, 0.049999997, 25, 25, 0.049999997, 25, -25, -0.049999997, 25, 25, 0.049999997, 25, 25, -0.049999997, 25, -25, -0.049999997, 25, 25, 0.049999997, -25, -25, 0.049999997, -25, 25, -0.049999997, -25, -25, 0.049999997, -25, -25, -0.049999997, -25, 25, -0.049999997, -25, 25, 0.049999997, 25, 25, 0.049999997, -25, 25, -0.049999997, 25, 25, 0.049999997, -25, 25, -0.049999997, -25, 25, -0.049999997, 25, -25, 0.049999997, -25, -25, 0.049999997, 25, -25, -0.049999997, -25, -25, 0.049999997, 25, -25, -0.049999997, 25, -25, -0.049999997, -25, 25, 0.049999997, 25, -25, 0.049999997, 25, 25, 0.049999997, -25, -25, 0.049999997, 25, -25, 0.049999997, -25, 25, 0.049999997, -25, -25, -0.049999997, 25, 25, -0.049999997, 25, -25, -0.049999997, -25, 25, -0.049999997, 25, 25, -0.049999997, -25, -25, -0.049999997, -25)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0i88t"]
+size = Vector3(7, 1, 7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_exwnq"]
+albedo_texture = ExtResource("3_eqbnc")
+uv1_triplanar = true
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_eqbnc"]
+data = PackedVector3Array(-3.5, 0.5, 3.5, 3.5, 0.5, 3.5, -3.5, -0.5, 3.5, 3.5, 0.5, 3.5, 3.5, -0.5, 3.5, -3.5, -0.5, 3.5, 3.5, 0.5, -3.5, -3.5, 0.5, -3.5, 3.5, -0.5, -3.5, -3.5, 0.5, -3.5, -3.5, -0.5, -3.5, 3.5, -0.5, -3.5, 3.5, 0.5, 3.5, 3.5, 0.5, -3.5, 3.5, -0.5, 3.5, 3.5, 0.5, -3.5, 3.5, -0.5, -3.5, 3.5, -0.5, 3.5, -3.5, 0.5, -3.5, -3.5, 0.5, 3.5, -3.5, -0.5, -3.5, -3.5, 0.5, 3.5, -3.5, -0.5, 3.5, -3.5, -0.5, -3.5, 3.5, 0.5, 3.5, -3.5, 0.5, 3.5, 3.5, 0.5, -3.5, -3.5, 0.5, 3.5, -3.5, 0.5, -3.5, 3.5, 0.5, -3.5, -3.5, -0.5, 3.5, 3.5, -0.5, 3.5, -3.5, -0.5, -3.5, 3.5, -0.5, 3.5, 3.5, -0.5, -3.5, -3.5, -0.5, -3.5)
+
+[node name="Playground" type="Node3D" unique_id=1336418507]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1580529125]
+mesh = SubResource("BoxMesh_xtv6o")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=405996939]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=55474552]
+shape = SubResource("ConcavePolygonShape3D_exwnq")
+
+[node name="Player" parent="." unique_id=680674564 instance=ExtResource("2_exwnq")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2017137436]
+transform = Transform3D(0, 0.8660254, 0.49999997, 4.371139e-08, -0.49999997, 0.8660254, 1, 2.1855694e-08, -3.7855173e-08, -3.874302e-07, 13, -1.3113416e-07)
+layers = 3
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1510929570]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 8)
+mesh = SubResource("BoxMesh_0i88t")
+surface_material_override/0 = SubResource("StandardMaterial3D_exwnq")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2" unique_id=225193986]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D" unique_id=1030136003]
+shape = SubResource("ConcavePolygonShape3D_eqbnc")
+metadata/_edit_lock_ = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=2059530989]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, 0)
+layers = 3
+light_color = Color(0, 0.8509804, 1, 1)
+light_energy = 2.0
+omni_range = 50.0

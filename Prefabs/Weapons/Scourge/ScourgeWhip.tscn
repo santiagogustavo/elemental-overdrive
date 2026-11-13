@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://vv00nw4rpgf5"]
+
+[ext_resource type="Shader" uid="uid://dfp64qj12vy1p" path="res://addons/gputrail/shaders/trail.gdshader" id="1_b68vd"]
+[ext_resource type="Script" uid="uid://bk6sa8saqp84g" path="res://Scripts/Bullet.gd" id="1_q41t2"]
+[ext_resource type="PackedScene" uid="uid://2dl8gv8cvh2t" path="res://Prefabs/Weapons/Scourge/ScourgeWhipHit.tscn" id="2_nfk1x"]
+[ext_resource type="Shader" uid="uid://1cpiujcq4qbx" path="res://addons/gputrail/shaders/trail_draw_pass.gdshader" id="2_q41t2"]
+[ext_resource type="Texture2D" uid="uid://bhgwovdvm2h2y" path="res://Textures/Scourge/SCOURGETRAIL.DTX.png" id="3_tk2ia"]
+[ext_resource type="Script" uid="uid://d5uy3jx36tvx" path="res://addons/gputrail/GPUTrail3D.gd" id="4_0b2an"]
+[ext_resource type="PackedScene" uid="uid://cxqy5rww4dcyd" path="res://Prefabs/Weapons/Common/MetalHit.tscn" id="7_1jvfe"]
+[ext_resource type="PackedScene" uid="uid://cw6726vud7ool" path="res://Prefabs/Weapons/Common/Ricochet.tscn" id="8_nfk1x"]
+[ext_resource type="PackedScene" uid="uid://cp5i5hvpl7n3w" path="res://Prefabs/Weapons/Common/WaterHit.tscn" id="9_ltk3w"]
+[ext_resource type="Script" uid="uid://dabvv5qjy2l1x" path="res://Scripts/Weapons/Scourge[/ScourgeWhipPath.gd" id="10_nfk1x"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_luo12"]
+radius = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uanhm"]
+shader = ExtResource("1_b68vd")
+
+[sub_resource type="Gradient" id="Gradient_b68vd"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_b68vd"]
+gradient = SubResource("Gradient_b68vd")
+
+[sub_resource type="Curve" id="Curve_ltk3w"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_0i88t"]
+curve = SubResource("Curve_ltk3w")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltk3w"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_q41t2")
+shader_parameter/tex = ExtResource("3_tk2ia")
+shader_parameter/mask_strength = 1.0
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/color_ramp = SubResource("GradientTexture1D_b68vd")
+shader_parameter/curve = SubResource("CurveTexture_0i88t")
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 33
+
+[sub_resource type="QuadMesh" id="QuadMesh_iu2cb"]
+material = SubResource("ShaderMaterial_ltk3w")
+
+[sub_resource type="Curve3D" id="Curve3D_1jvfe"]
+bake_interval = 100.0
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -20, 0, 0, 0, 0, 0, 0, 0, -10, -40, 0, 0, 0, 0, 0, 0, 0, 20, -60, 0, 0, 0, 0, 0, 0, 0, -20, -80, 0, 0, 0, 0, 0, 0, 0, 30, -100, 0, 0, 0, 0, 0, 0, 0, -30, -120, 0, 0, 0, 0, 0, 0, 0, 50, -150, 0, 0, 0, 0, 0, 0, 0, 0.6291795, -164.34949),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 9
+
+[node name="ScourgeWhip" type="Area3D" unique_id=457809753 node_paths=PackedStringArray("trail")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_q41t2")
+speed = 1000.0
+max_bounces = 1
+lifetime = 1.0
+ricochet_chance = 0.0
+hit_decal = ExtResource("2_nfk1x")
+keep_trail = true
+trail = NodePath("GPUTrail3D")
+metadata/_custom_type_script = "uid://bk6sa8saqp84g"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=119493021]
+shape = SubResource("SphereShape3D_luo12")
+
+[node name="GPUTrail3D" type="GPUParticles3D" parent="." unique_id=1380056704]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.25, 0)
+amount = 100
+lifetime = 100.0
+explosiveness = 1.0
+fixed_fps = 143
+process_material = SubResource("ShaderMaterial_uanhm")
+draw_pass_1 = SubResource("QuadMesh_iu2cb")
+script = ExtResource("4_0b2an")
+length_seconds = 0.6993006993006993
+texture = ExtResource("3_tk2ia")
+color_ramp = SubResource("GradientTexture1D_b68vd")
+curve = SubResource("CurveTexture_0i88t")
+vertical_texture = true
+dewiggle = false
+_defaults_have_been_set = true
+metadata/_custom_type_script = "uid://d5uy3jx36tvx"
+
+[node name="MetalHit" parent="." unique_id=731540104 instance=ExtResource("7_1jvfe")]
+
+[node name="Ricochet" parent="." unique_id=105193290 instance=ExtResource("8_nfk1x")]
+
+[node name="WaterHit" parent="." unique_id=847069402 instance=ExtResource("9_ltk3w")]
+
+[node name="Path3D" type="Path3D" parent="." unique_id=932649026 node_paths=PackedStringArray("whip_trail")]
+curve = SubResource("Curve3D_1jvfe")
+script = ExtResource("10_nfk1x")
+whip_trail = NodePath("../GPUTrail3D")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=418575527]
+transform = Transform3D(0.9999974, 0, 0, 0, 0.9553404, 0.2954945, 0, -0.29549432, 0.955341, 0, 22.681658, -160.455)
+progress = 356.77026

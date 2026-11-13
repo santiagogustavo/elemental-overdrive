@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dt8iynw7dimqb"]
+
+[ext_resource type="Texture2D" uid="uid://qlna7jd2ykel" path="res://Textures/MagmaCannon/MAGMACANNON.DTX.png" id="1_kfvcl"]
+[ext_resource type="Texture2D" uid="uid://x5pf18vdhbom" path="res://Textures/MagmaCannon/MAGMACANNON.DTX.OCC.png" id="2_6wudb"]
+
+[resource]
+albedo_texture = ExtResource("1_kfvcl")
+metallic = 1.0
+metallic_texture = ExtResource("2_6wudb")
+metallic_texture_channel = 4
+ao_enabled = true
+ao_light_affect = 1.0
+ao_texture = ExtResource("2_6wudb")

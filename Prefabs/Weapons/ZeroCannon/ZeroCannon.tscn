@@ -1,0 +1,551 @@
+[gd_scene format=3 uid="uid://bfwaxjgw2t3l7"]
+
+[ext_resource type="Script" uid="uid://busy6rbb605wt" path="res://Scripts/Weapon.gd" id="1_okvqj"]
+[ext_resource type="PackedScene" uid="uid://bdlcvgq6144ej" path="res://Prefabs/Weapons/ZeroCannon/ZeroCannonBullet.tscn" id="2_mf50b"]
+[ext_resource type="PackedScene" uid="uid://bo75ekdi1ncq0" path="res://Models/ZeroCannon.glb" id="3_8oonp"]
+[ext_resource type="Texture2D" uid="uid://drqi35dnttu2r" path="res://Textures/muzzle1.png" id="4_nrrs4"]
+[ext_resource type="Texture2D" uid="uid://clolimiu0aqti" path="res://Textures/Particles/smoke.png" id="5_anpo4"]
+[ext_resource type="Material" uid="uid://38p3tsvxfqjt" path="res://Materials/Weapons/ZeroCannon/ZEROCANNON.EMM.tres" id="6_okvqj"]
+[ext_resource type="Animation" uid="uid://df4lw2vs4nhnw" path="res://Animations/Weapons/ZeroCannon/AmbA.res" id="7_w3ssf"]
+[ext_resource type="Animation" uid="uid://byvfpw07of1xm" path="res://Animations/Weapons/ZeroCannon/AttackA.res" id="8_j0riw"]
+[ext_resource type="Animation" uid="uid://bf8fjow8gonae" path="res://Animations/Weapons/ZeroCannon/AttackEnd.res" id="9_38q35"]
+[ext_resource type="Animation" uid="uid://clbc4q5x717f1" path="res://Animations/Weapons/ZeroCannon/Away.res" id="10_1uvpy"]
+[ext_resource type="Animation" uid="uid://ms6ieir4h4k3" path="res://Animations/Weapons/ZeroCannon/Ready.res" id="11_2cfqa"]
+[ext_resource type="Animation" uid="uid://io4uli1f3htn" path="res://Animations/Weapons/ZeroCannon/static.res" id="12_1w6hk"]
+[ext_resource type="AudioStream" uid="uid://bw0ykjj66hi4m" path="res://Sounds/Weapons/ZeroCannon/READY.WAV" id="13_x6o8w"]
+[ext_resource type="AudioStream" uid="uid://j3oq1ft7dmob" path="res://Sounds/Weapons/ZeroCannon/ATTACK.WAV" id="14_wnjfl"]
+[ext_resource type="AudioStream" uid="uid://djjdulh1tpobs" path="res://Sounds/Weapons/ZeroCannon/ATTACKDONE.WAV" id="15_fxxnh"]
+[ext_resource type="AudioStream" uid="uid://pihcmowuc8wg" path="res://Sounds/Weapons/ZeroCannon/AMBIENTLOOP.WAV" id="16_iijjx"]
+[ext_resource type="AudioStream" uid="uid://7f0jnra2wi03" path="res://Sounds/Weapons/ZeroCannon/ICECRACK1.WAV" id="17_iip2j"]
+[ext_resource type="AudioStream" uid="uid://bxd3xo0cabahr" path="res://Sounds/Weapons/ZeroCannon/ICECRACK2.WAV" id="18_67g82"]
+
+[sub_resource type="Curve" id="Curve_u5l1l"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.8), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_okvqj"]
+curve = SubResource("Curve_u5l1l")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0i88t"]
+angle_min = 1.0728835e-05
+angle_max = 360.00003
+gravity = Vector3(0, 0, 0)
+scale_min = 0.9
+scale_max = 1.15
+alpha_curve = SubResource("CurveTexture_okvqj")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mf50b"]
+cull_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.41568628, 0.8117647, 0.8862745, 1)
+albedo_texture = ExtResource("4_nrrs4")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+proximity_fade_enabled = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_3si4x"]
+material = SubResource("StandardMaterial3D_mf50b")
+size = Vector2(0.85, 0.85)
+
+[sub_resource type="Curve" id="Curve_13oxe"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_mf50b"]
+curve = SubResource("Curve_13oxe")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ckb4l"]
+angle_min = 1.0728835e-05
+angle_max = 160.00002
+direction = Vector3(0, 1, 0)
+spread = 20.0
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_max = 1.5
+color = Color(1, 1, 1, 0.39215687)
+alpha_curve = SubResource("CurveTexture_mf50b")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8oonp"]
+transparency = 4
+cull_mode = 1
+diffuse_mode = 3
+specular_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("5_anpo4")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+proximity_fade_distance = 0.01
+
+[sub_resource type="QuadMesh" id="QuadMesh_0i88t"]
+material = SubResource("StandardMaterial3D_8oonp")
+size = Vector2(0.1, 0.1)
+
+[sub_resource type="Curve" id="Curve_p4yei"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_colwp"]
+curve = SubResource("Curve_p4yei")
+
+[sub_resource type="Curve" id="Curve_colwp"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, -360), 0.0, 0.0, 0, 0, Vector2(1, 360), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_c87op"]
+curve = SubResource("Curve_colwp")
+
+[sub_resource type="Curve" id="Curve_c87op"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0.5), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_13oxe"]
+curve = SubResource("Curve_c87op")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c87op"]
+angle_min = 1.0728835e-05
+angle_max = 360.00003
+angle_curve = SubResource("CurveTexture_c87op")
+direction = Vector3(0, -1, 0)
+spread = 20.0
+flatness = 1.0
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_13oxe")
+color = Color(1, 1, 1, 0.5882353)
+alpha_curve = SubResource("CurveTexture_colwp")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nrrs4"]
+transparency = 4
+cull_mode = 1
+diffuse_mode = 3
+specular_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("5_anpo4")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+proximity_fade_enabled = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_c87op"]
+material = SubResource("StandardMaterial3D_nrrs4")
+size = Vector2(0.35, 0.35)
+
+[sub_resource type="Animation" id="Animation_ncoff"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Ready:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Attack:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Ambient:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("..:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../IceCrack:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ZEROCANNON/Skeleton3D/Muzzle:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ZEROCANNON/Skeleton3D/Base/Smoke:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("ZEROCANNON/Skeleton3D/Base/Smoke2:emitting")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("ZEROCANNON/Skeleton3D/Base/SmokeBig:emitting")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("ZEROCANNON/Skeleton3D/Muzzle/GPUParticles3D:emitting")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("ZEROCANNON/Skeleton3D/Base/Smoke3:emitting")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dsq7v"]
+_data = {
+&"RESET": SubResource("Animation_ncoff")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y4h14"]
+_data = {
+&"AmbA": ExtResource("7_w3ssf"),
+&"AttackA": ExtResource("8_j0riw"),
+&"AttackEnd": ExtResource("9_38q35"),
+&"Away": ExtResource("10_1uvpy"),
+&"Ready": ExtResource("11_2cfqa"),
+&"static": ExtResource("12_1w6hk")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_phyto"]
+animation = &"ZeroCannon/Away"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iyet6"]
+animation = &"ZeroCannon/AmbA"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u5l1l"]
+animation = &"ZeroCannon/AttackA"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_iyet6"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_v3pet"]
+graph_offset = Vector2(-449, 92)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_u5l1l")
+nodes/Animation/position = Vector2(-340, 140)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_iyet6")
+nodes/TimeScale/position = Vector2(-20, 140)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xek88"]
+animation = &"ZeroCannon/AttackEnd"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1c1i0"]
+animation = &"ZeroCannon/static"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u5l1l"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_js08p"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"ambience"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xek88"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6ddkc"]
+advance_mode = 2
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iyet6"]
+advance_mode = 2
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_miec4"]
+break_loop_at_end = true
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_not_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y862a"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ncoff"]
+advance_mode = 2
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_iyet6"]
+states/AmbA/node = SubResource("AnimationNodeAnimation_iyet6")
+states/AmbA/position = Vector2(515, 226)
+states/Attack/node = SubResource("AnimationNodeBlendTree_v3pet")
+states/Attack/position = Vector2(515, -44)
+states/AttackEnd/node = SubResource("AnimationNodeAnimation_xek88")
+states/AttackEnd/position = Vector2(699, 30)
+states/static/node = SubResource("AnimationNodeAnimation_1c1i0")
+states/static/position = Vector2(515, 100)
+transitions = ["Start", "static", SubResource("AnimationNodeStateMachineTransition_u5l1l"), "static", "AmbA", SubResource("AnimationNodeStateMachineTransition_js08p"), "AmbA", "static", SubResource("AnimationNodeStateMachineTransition_xek88"), "static", "Attack", SubResource("AnimationNodeStateMachineTransition_6ddkc"), "AmbA", "Attack", SubResource("AnimationNodeStateMachineTransition_iyet6"), "Attack", "AttackEnd", SubResource("AnimationNodeStateMachineTransition_miec4"), "AttackEnd", "static", SubResource("AnimationNodeStateMachineTransition_y862a"), "AttackEnd", "Attack", SubResource("AnimationNodeStateMachineTransition_ncoff")]
+graph_offset = Vector2(46, 50)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ujye7"]
+animation = &"ZeroCannon/Ready"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_phyto"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1c1i0"]
+advance_mode = 2
+advance_condition = &"draw"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v3pet"]
+xfade_time = 0.1
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g3f0u"]
+advance_mode = 2
+advance_condition = &"holster"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ujye7"]
+states/Away/node = SubResource("AnimationNodeAnimation_phyto")
+states/Away/position = Vector2(363, -58)
+states/End/position = Vector2(826, 100)
+states/Idle/node = SubResource("AnimationNodeStateMachine_iyet6")
+states/Idle/position = Vector2(572, 100)
+states/Ready/node = SubResource("AnimationNodeAnimation_ujye7")
+states/Ready/position = Vector2(363, 100)
+states/Start/position = Vector2(152, 100)
+transitions = ["Start", "Ready", SubResource("AnimationNodeStateMachineTransition_phyto"), "Away", "Ready", SubResource("AnimationNodeStateMachineTransition_1c1i0"), "Ready", "Idle", SubResource("AnimationNodeStateMachineTransition_v3pet"), "Idle", "Away", SubResource("AnimationNodeStateMachineTransition_g3f0u")]
+graph_offset = Vector2(-24, -65)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_6qady"]
+streams_count = 2
+stream_0/stream = ExtResource("17_iip2j")
+stream_1/stream = ExtResource("18_67g82")
+
+[node name="ZeroCannon" type="Node3D" unique_id=2067954729 node_paths=PackedStringArray("muzzle_node")]
+script = ExtResource("1_okvqj")
+bullet_prefab = ExtResource("2_mf50b")
+muzzle_node = NodePath("ZeroCannon/ZEROCANNON/Skeleton3D/Muzzle")
+metadata/_custom_type_script = "uid://busy6rbb605wt"
+
+[node name="ZeroCannon" parent="." unique_id=1248044834 instance=ExtResource("3_8oonp")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.1)
+
+[node name="Skeleton3D" parent="ZeroCannon/ZEROCANNON" parent_id_path=PackedInt32Array(1248044834, 1836823875) index="0" unique_id=788148678]
+bones/1/position = Vector3(0.44799906, -0.3420002, 0.320498)
+bones/1/rotation = Quaternion(-0.066679336, -0.06033475, 0.0046453387, 0.99593776)
+bones/2/rotation = Quaternion(0.08142598, -0.6607002, 0.4313348, 0.6089298)
+bones/5/position = Vector3(-8.828938e-08, 4.6333298e-08, 0.062999986)
+bones/5/rotation = Quaternion(-1.14087e-08, -1.862646e-09, -1.4260876e-09, 1)
+bones/6/position = Vector3(-1.08778465e-07, 4.703176e-08, 0.88849974)
+bones/6/rotation = Quaternion(-4.679263e-09, 0.70710665, -1.9010216e-09, 0.7071069)
+
+[node name="Piece" parent="ZeroCannon/ZEROCANNON/Skeleton3D" index="0" unique_id=2011297253]
+layers = 2
+
+[node name="Muzzle" type="BoneAttachment3D" parent="ZeroCannon/ZEROCANNON/Skeleton3D" index="1" unique_id=1358290056]
+transform = Transform3D(0.99267626, -0.0012067687, -0.120798804, 0.11955982, -0.13337752, 0.9838271, -0.017299095, -0.99106455, -0.1322564, 0.44038865, 0.38247907, 0.333668)
+visible = false
+bone_name = "Barrel"
+bone_idx = 5
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="ZeroCannon/ZEROCANNON/Skeleton3D/Muzzle" unique_id=649208016]
+transform = Transform3D(1.0000001, 1.8626451e-09, -1.4901161e-08, 1.8626451e-09, 1, -1.4901161e-08, 0, 0, 1, -0.04331076, 0.010892, 0.9686811)
+layers = 2
+amount = 1
+lifetime = 0.1
+randomness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_0i88t")
+draw_pass_1 = SubResource("QuadMesh_3si4x")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="ZeroCannon/ZEROCANNON/Skeleton3D/Muzzle/GPUParticles3D" unique_id=1584250100]
+transform = Transform3D(0.9999999, 0, 0, -1.8626451e-09, 0.99999994, 2.9802322e-08, 0, 0, 0.99999994, 0, 0, 0)
+light_color = Color(0.41568628, 0.8117647, 0.8862745, 1)
+light_energy = 10.0
+shadow_enabled = true
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="ZeroCannon/ZEROCANNON/Skeleton3D/Muzzle/GPUParticles3D" unique_id=655961417]
+transform = Transform3D(0.9999999, 3.7252903e-09, 0, -1.8626451e-09, 0.99999994, 1.4901161e-08, 0, 0, 0.99999994, -0.73381674, 0.32518518, -0.0040340424)
+layers = 2
+light_color = Color(0.41568628, 0.8117647, 0.8862745, 1)
+light_energy = 10.0
+light_cull_mask = 4293918722
+shadow_enabled = true
+
+[node name="Base" type="BoneAttachment3D" parent="ZeroCannon/ZEROCANNON/Skeleton3D" index="2" unique_id=729785699]
+transform = Transform3D(0.99267626, -0.0012067743, -0.1207988, 0.11955982, -0.13337749, 0.9838271, -0.017299099, -0.99106455, -0.13225637, 0.44799906, 0.320498, 0.3420002)
+bone_name = "Base"
+bone_idx = 1
+
+[node name="Smoke" type="GPUParticles3D" parent="ZeroCannon/ZEROCANNON/Skeleton3D/Base" unique_id=1183696089]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4924597e-09, 0.17417336, 0.26311722)
+layers = 2
+cast_shadow = 0
+emitting = false
+lifetime = 0.2
+one_shot = true
+randomness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_ckb4l")
+draw_pass_1 = SubResource("QuadMesh_0i88t")
+
+[node name="Smoke2" type="GPUParticles3D" parent="ZeroCannon/ZEROCANNON/Skeleton3D/Base" unique_id=1540620296]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.561137e-09, 0.17417336, 0.16661978)
+layers = 2
+cast_shadow = 0
+emitting = false
+lifetime = 0.2
+one_shot = true
+randomness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_ckb4l")
+draw_pass_1 = SubResource("QuadMesh_0i88t")
+
+[node name="Smoke3" type="GPUParticles3D" parent="ZeroCannon/ZEROCANNON/Skeleton3D/Base" unique_id=1110963823]
+transform = Transform3D(0.76178044, 0.6374794, 0.115372695, -0.6451872, 0.762625, 0.046225503, -0.058518358, -0.10965078, 0.9922461, -0.16252083, -0.1301297, 0.3638945)
+layers = 2
+cast_shadow = 0
+amount = 16
+lifetime = 0.2
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_c87op")
+draw_pass_1 = SubResource("QuadMesh_0i88t")
+
+[node name="SmokeBig" type="GPUParticles3D" parent="ZeroCannon/ZEROCANNON/Skeleton3D/Base" unique_id=678525155]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.0204108e-09, 0.0055885855, 0.97984135)
+layers = 2
+cast_shadow = 0
+emitting = false
+lifetime = 0.2
+one_shot = true
+randomness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_ckb4l")
+draw_pass_1 = SubResource("QuadMesh_c87op")
+
+[node name="Piece_001" parent="ZeroCannon/ZEROCANNON/Skeleton3D" index="3" unique_id=582974747]
+visible = false
+layers = 2
+surface_material_override/0 = ExtResource("6_okvqj")
+
+[node name="AnimationPlayerCustom" type="AnimationPlayer" parent="ZeroCannon" unique_id=2036678373]
+libraries/ = SubResource("AnimationLibrary_dsq7v")
+libraries/ZeroCannon = SubResource("AnimationLibrary_y4h14")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=454022866]
+root_node = NodePath("../ZeroCannon")
+callback_mode_discrete = 0
+tree_root = SubResource("AnimationNodeStateMachine_ujye7")
+anim_player = NodePath("../ZeroCannon/AnimationPlayerCustom")
+parameters/conditions/draw = false
+parameters/conditions/holster = false
+parameters/Idle/conditions/ambience = false
+parameters/Idle/conditions/is_attacking = false
+parameters/Idle/conditions/is_not_attacking = false
+parameters/Idle/Attack/TimeScale/scale = 3.0
+
+[node name="Ready" type="AudioStreamPlayer3D" parent="." unique_id=1905272412]
+stream = ExtResource("13_x6o8w")
+bus = &"Effects"
+
+[node name="Attack" type="AudioStreamPlayer3D" parent="." unique_id=131415210]
+stream = ExtResource("14_wnjfl")
+bus = &"Effects"
+
+[node name="AttackEnd" type="AudioStreamPlayer3D" parent="." unique_id=1583302954]
+stream = ExtResource("15_fxxnh")
+bus = &"Effects"
+
+[node name="Ambient" type="AudioStreamPlayer3D" parent="." unique_id=1238483932]
+stream = ExtResource("16_iijjx")
+bus = &"Effects"
+
+[node name="IceCrack" type="AudioStreamPlayer3D" parent="." unique_id=64284370]
+stream = SubResource("AudioStreamRandomizer_6qady")
+bus = &"Effects"
+
+[editable path="ZeroCannon"]

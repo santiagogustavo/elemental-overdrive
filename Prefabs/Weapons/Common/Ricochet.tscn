@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cw6726vud7ool"]
+
+[ext_resource type="AudioStream" uid="uid://e8cp32ikavgu" path="res://Sounds/Weapons/ZeroCannon/RICOCHET1.WAV" id="1_jk1q2"]
+[ext_resource type="AudioStream" uid="uid://dyd3iaev6mgbe" path="res://Sounds/Weapons/ZeroCannon/RICOCHET2.WAV" id="2_f2m6v"]
+[ext_resource type="AudioStream" uid="uid://jp028jgv8ien" path="res://Sounds/Weapons/ZeroCannon/RICOCHET3.WAV" id="3_wingi"]
+[ext_resource type="AudioStream" uid="uid://bfssb4cfgjv6r" path="res://Sounds/Weapons/ZeroCannon/RICOCHET4.WAV" id="4_l0y0a"]
+[ext_resource type="AudioStream" uid="uid://jte2l4ogrtuu" path="res://Sounds/Weapons/ZeroCannon/RICOCHET5.WAV" id="5_jhe1v"]
+[ext_resource type="AudioStream" uid="uid://cu8fh04mxm2wc" path="res://Sounds/Weapons/ZeroCannon/RICOCHET6.WAV" id="6_cboda"]
+[ext_resource type="AudioStream" uid="uid://cef75dt1vmoku" path="res://Sounds/Weapons/ZeroCannon/RICOCHET7.WAV" id="7_vt621"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0i88t"]
+streams_count = 7
+stream_0/stream = ExtResource("1_jk1q2")
+stream_1/stream = ExtResource("2_f2m6v")
+stream_2/stream = ExtResource("3_wingi")
+stream_3/stream = ExtResource("4_l0y0a")
+stream_4/stream = ExtResource("5_jhe1v")
+stream_5/stream = ExtResource("6_cboda")
+stream_6/stream = ExtResource("7_vt621")
+
+[node name="Ricochet" type="AudioStreamPlayer3D" unique_id=105193290]
+stream = SubResource("AudioStreamRandomizer_0i88t")
+bus = &"Effects"

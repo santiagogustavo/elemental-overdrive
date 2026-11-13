@@ -1,0 +1,167 @@
+[gd_scene format=3 uid="uid://2dl8gv8cvh2t"]
+
+[ext_resource type="Texture2D" uid="uid://bsr3imhqi65nc" path="res://Textures/Scourge/SCOURGEHIT.DTX.png" id="1_ar072"]
+[ext_resource type="Script" uid="uid://ew62pnepb0kd" path="res://Scripts/QueueFreeTimeout.gd" id="1_kmjtt"]
+[ext_resource type="PackedScene" uid="uid://cnpyrs6ijr5fd" path="res://Prefabs/Particles/HitSpark.tscn" id="3_3cjhe"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n22i3"]
+lifetime_randomness = 1.0
+particle_flag_align_y = true
+angle_min = -60.0
+angle_max = 60.0
+direction = Vector3(0, 0, -1)
+spread = 30.0
+initial_velocity_min = 10.0
+initial_velocity_max = 30.0
+scale_min = 0.2
+color = Color(0, 0.8862745, 0, 1)
+
+[sub_resource type="Curve" id="Curve_kmjtt"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_ar072"]
+curve = SubResource("Curve_kmjtt")
+
+[sub_resource type="Curve" id="Curve_ar072"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, -360), 0.0, 0.0, 0, 0, Vector2(1, 360), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_n22i3"]
+curve = SubResource("Curve_ar072")
+
+[sub_resource type="Curve" id="Curve_3cjhe"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_3cjhe"]
+curve = SubResource("Curve_3cjhe")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0i88t"]
+angle_min = 1.0728835e-05
+angle_max = 360.00003
+angle_curve = SubResource("CurveTexture_n22i3")
+gravity = Vector3(0, 0, 0)
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_3cjhe")
+alpha_curve = SubResource("CurveTexture_ar072")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3si4x"]
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.5882353)
+albedo_texture = ExtResource("1_ar072")
+emission_enabled = true
+emission_texture = ExtResource("1_ar072")
+
+[sub_resource type="QuadMesh" id="QuadMesh_ckb4l"]
+material = SubResource("StandardMaterial3D_3si4x")
+size = Vector2(2, 2)
+
+[sub_resource type="Animation" id="Animation_3cjhe"]
+resource_name = "Hit"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RaySpark:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GPUParticles3D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_n22i3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RaySpark:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GPUParticles3D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ueisi"]
+_data = {
+&"Hit": SubResource("Animation_3cjhe"),
+&"RESET": SubResource("Animation_n22i3")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3cjhe"]
+animation = &"Hit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n22i3"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3cjhe"]
+states/Hit/node = SubResource("AnimationNodeAnimation_3cjhe")
+states/Hit/position = Vector2(506, 100)
+transitions = ["Start", "Hit", SubResource("AnimationNodeStateMachineTransition_n22i3")]
+
+[node name="ScourgeWhipHit" type="Node3D" unique_id=267481368]
+script = ExtResource("1_kmjtt")
+timeout = 1.0
+metadata/_custom_type_script = "uid://ew62pnepb0kd"
+
+[node name="RaySpark" parent="." unique_id=1345973130 instance=ExtResource("3_3cjhe")]
+process_material = SubResource("ParticleProcessMaterial_n22i3")
+
+[node name="OmniLight3D" parent="RaySpark" index="0" unique_id=1146664659]
+light_color = Color(0, 0.8862745, 0, 1)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=555498828]
+emitting = false
+amount = 1
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_0i88t")
+draw_pass_1 = SubResource("QuadMesh_ckb4l")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1627914508]
+libraries/ = SubResource("AnimationLibrary_ueisi")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1235087807]
+callback_mode_discrete = 0
+tree_root = SubResource("AnimationNodeStateMachine_3cjhe")
+anim_player = NodePath("../AnimationPlayer")
+
+[editable path="RaySpark"]

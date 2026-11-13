@@ -1,0 +1,209 @@
+[gd_scene format=3 uid="uid://bxes3vr7p1um6"]
+
+[ext_resource type="Script" uid="uid://ew62pnepb0kd" path="res://Scripts/QueueFreeTimeout.gd" id="1_bupvm"]
+[ext_resource type="Shader" uid="uid://16l7bpnpsshq" path="res://assets/BinbunVFX_Vol2/ElectricFX/shader/four_point_star.gdshader" id="3_gjqpp"]
+[ext_resource type="PackedScene" uid="uid://25isgvqwy1cj" path="res://assets/BinbunVFX_Vol2/ElectricFX/effects/ball/vfx_ball_lightning_01.tscn" id="3_yr1wi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bupvm"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_bupvm"]
+material = SubResource("StandardMaterial3D_bupvm")
+radius = 2.0
+height = 4.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ykvtu"]
+render_priority = 0
+shader = ExtResource("3_gjqpp")
+shader_parameter/primary_color = Color(1, 1, 1, 1)
+shader_parameter/secondary_color = Color(0, 0.84313726, 1, 1)
+shader_parameter/emission = 2.0
+shader_parameter/emission_mult = 1.0
+shader_parameter/star_shape = 0.39999999478452
+shader_parameter/star_smoothness = 0.5000000074506
+shader_parameter/proximity_fade = true
+shader_parameter/proximity_fade_distance = 1.0000000149012
+
+[sub_resource type="QuadMesh" id="QuadMesh_bupvm"]
+size = Vector2(2, 4)
+
+[sub_resource type="Gradient" id="Gradient_bupvm"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ykvtu"]
+frequency = 0.0142
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gjqpp"]
+noise = SubResource("FastNoiseLite_ykvtu")
+color_ramp = SubResource("Gradient_bupvm")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yr1wi"]
+transparency = 4
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.7294118, 1, 1, 0.49019608)
+albedo_texture = SubResource("NoiseTexture2D_gjqpp")
+proximity_fade_enabled = true
+proximity_fade_distance = 5.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_0i88t"]
+material = SubResource("StandardMaterial3D_yr1wi")
+radius = 1.5
+height = 3.0
+
+[sub_resource type="Animation" id="Animation_yr1wi"]
+resource_name = "Play"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VFXBallLightning_01:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2220996),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:transparency")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.08354205, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, 1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshInstance3D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(3, 3, 3)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MeshInstance3D:mesh:material:albedo_texture:noise:offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 200, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gjqpp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VFXBallLightning_01:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:transparency")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshInstance3D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MeshInstance3D:mesh:material:albedo_texture:noise:offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gjqpp"]
+_data = {
+&"Play": SubResource("Animation_yr1wi"),
+&"RESET": SubResource("Animation_gjqpp")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bupvm"]
+animation = &"Play"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yr1wi"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ykvtu"]
+states/Play/node = SubResource("AnimationNodeAnimation_bupvm")
+states/Play/position = Vector2(522, 100)
+transitions = ["Start", "Play", SubResource("AnimationNodeStateMachineTransition_yr1wi")]
+
+[node name="WindBladeHit" type="Node3D" unique_id=923711332]
+script = ExtResource("1_bupvm")
+timeout = 1.0
+metadata/_custom_type_script = "uid://ew62pnepb0kd"
+
+[node name="VFXBallLightning_01" parent="." unique_id=623493245 instance=ExtResource("3_yr1wi")]
+transform = Transform3D(3, 0, 0, 0, -4.371139e-08, -3, 0, 1, -1.3113416e-07, 0, 0, 0)
+
+[node name="Zaps" parent="VFXBallLightning_01" index="0" unique_id=1548295806]
+amount = 16
+
+[node name="ZapsExtra" parent="VFXBallLightning_01" index="1" unique_id=758044236]
+amount = 16
+
+[node name="Glow" parent="VFXBallLightning_01" index="2" unique_id=38197820]
+draw_pass_1 = SubResource("SphereMesh_bupvm")
+
+[node name="Star" parent="VFXBallLightning_01" index="3" unique_id=450950571]
+material_override = SubResource("ShaderMaterial_ykvtu")
+draw_pass_1 = SubResource("QuadMesh_bupvm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1412876273]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+transparency = 1.0
+cast_shadow = 0
+mesh = SubResource("SphereMesh_0i88t")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1024598879]
+libraries/ = SubResource("AnimationLibrary_gjqpp")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=953068535]
+tree_root = SubResource("AnimationNodeStateMachine_ykvtu")
+anim_player = NodePath("../AnimationPlayer")
+
+[editable path="VFXBallLightning_01"]

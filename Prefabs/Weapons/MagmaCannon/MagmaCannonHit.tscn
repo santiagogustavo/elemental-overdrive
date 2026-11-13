@@ -1,0 +1,130 @@
+[gd_scene format=3 uid="uid://f7qnhuq6nprh"]
+
+[ext_resource type="Script" uid="uid://ew62pnepb0kd" path="res://Scripts/QueueFreeTimeout.gd" id="1_0j6im"]
+[ext_resource type="PackedScene" uid="uid://cnpyrs6ijr5fd" path="res://Prefabs/Particles/HitSpark.tscn" id="2_rypkd"]
+[ext_resource type="Texture2D" uid="uid://tx8ohpnvjbaf" path="res://Textures/MagmaCannon/MAGFLASH.DTX.png" id="3_menfy"]
+[ext_resource type="Texture2D" uid="uid://bmo17jqu50cu8" path="res://Textures/MagmaCannon/MAGFLASH.DTX.EMM.png" id="4_3o3hc"]
+[ext_resource type="Script" uid="uid://bjaqbggo1nseg" path="res://Scripts/RandomDecal.gd" id="5_psf8a"]
+
+[sub_resource type="Animation" id="Animation_menfy"]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RaySpark:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Decal:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Decal:emission_energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_3o3hc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RaySpark:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Decal:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Decal:emission_energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_psf8a"]
+_data = {
+&"Idle": SubResource("Animation_menfy"),
+&"RESET": SubResource("Animation_3o3hc")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_q4wrt"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wlwav"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q4wrt"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_vpewc"]
+states/Idle/node = SubResource("AnimationNodeAnimation_q4wrt")
+states/Idle/position = Vector2(541, 100)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_wlwav"), "Idle", "End", SubResource("AnimationNodeStateMachineTransition_q4wrt")]
+
+[node name="MagmaCannonHit" type="Node3D" unique_id=754325531]
+script = ExtResource("1_0j6im")
+timeout = 1.0
+metadata/_custom_type_script = "uid://ew62pnepb0kd"
+
+[node name="RaySpark" parent="." unique_id=1345973130 instance=ExtResource("2_rypkd")]
+
+[node name="Decal" type="Decal" parent="." unique_id=59583933]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+size = Vector3(0.5, 0.25, 0.5)
+texture_albedo = ExtResource("3_menfy")
+texture_emission = ExtResource("4_3o3hc")
+script = ExtResource("5_psf8a")
+metadata/_custom_type_script = "uid://bjaqbggo1nseg"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1888533737]
+callback_mode_discrete = 0
+libraries/ = SubResource("AnimationLibrary_psf8a")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1807171417]
+callback_mode_discrete = 0
+tree_root = SubResource("AnimationNodeStateMachine_vpewc")
+anim_player = NodePath("../AnimationPlayer")

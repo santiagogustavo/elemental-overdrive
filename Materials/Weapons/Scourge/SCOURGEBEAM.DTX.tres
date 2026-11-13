@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://fwbkeeouiniw"]
+
+[ext_resource type="Texture2D" uid="uid://dgqs6evsbhrbo" path="res://Textures/Scourge/SCOURGEBEAM.DTX.png" id="1_xpyx3"]
+[ext_resource type="Texture2D" uid="uid://7jls5wbfpkro" path="res://Textures/Scourge/SCOURGEBEAM.DTX.OCC.png" id="2_axx4o"]
+
+[resource]
+cull_mode = 2
+albedo_texture = ExtResource("1_xpyx3")
+ao_enabled = true
+ao_light_affect = 1.0
+ao_texture = ExtResource("2_axx4o")

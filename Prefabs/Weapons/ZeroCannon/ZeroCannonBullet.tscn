@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://bdlcvgq6144ej"]
+
+[ext_resource type="Script" uid="uid://bk6sa8saqp84g" path="res://Scripts/Bullet.gd" id="1_g6k3p"]
+[ext_resource type="Shader" uid="uid://dfp64qj12vy1p" path="res://addons/gputrail/shaders/trail.gdshader" id="1_hk14l"]
+[ext_resource type="Shader" uid="uid://1cpiujcq4qbx" path="res://addons/gputrail/shaders/trail_draw_pass.gdshader" id="2_32yc0"]
+[ext_resource type="PackedScene" uid="uid://bqkap6oi5rk2c" path="res://Prefabs/Weapons/ZeroCannon/ZeroCannonHit.tscn" id="2_actw8"]
+[ext_resource type="Texture2D" uid="uid://cjc4ekn215ucr" path="res://Textures/ZeroCannon/ZEROTRAIL.DTX.png" id="3_32yc0"]
+[ext_resource type="Script" uid="uid://d5uy3jx36tvx" path="res://addons/gputrail/GPUTrail3D.gd" id="3_g6k3p"]
+[ext_resource type="PackedScene" uid="uid://cw6726vud7ool" path="res://Prefabs/Weapons/Common/Ricochet.tscn" id="7_ww120"]
+[ext_resource type="PackedScene" uid="uid://cxqy5rww4dcyd" path="res://Prefabs/Weapons/Common/MetalHit.tscn" id="8_ay0uo"]
+[ext_resource type="PackedScene" uid="uid://cp5i5hvpl7n3w" path="res://Prefabs/Weapons/Common/WaterHit.tscn" id="9_shjq1"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0i88t"]
+radius = 0.15
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_actw8"]
+shader = ExtResource("1_hk14l")
+
+[sub_resource type="Gradient" id="Gradient_g6k3p"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_g6k3p"]
+gradient = SubResource("Gradient_g6k3p")
+
+[sub_resource type="Curve" id="Curve_3si4x"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ckb4l"]
+curve = SubResource("Curve_3si4x")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0voeb"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_32yc0")
+shader_parameter/tex = ExtResource("3_32yc0")
+shader_parameter/mask_strength = 1.0
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/color_ramp = SubResource("GradientTexture1D_g6k3p")
+shader_parameter/curve = SubResource("CurveTexture_ckb4l")
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 45
+
+[sub_resource type="QuadMesh" id="QuadMesh_vlvgr"]
+material = SubResource("ShaderMaterial_0voeb")
+
+[node name="ZeroCannonBullet" type="Area3D" unique_id=1776081751]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_g6k3p")
+lifetime = 1.0
+hit_decal = ExtResource("2_actw8")
+metadata/_custom_type_script = "uid://bk6sa8saqp84g"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=610455710]
+shape = SubResource("SphereShape3D_0i88t")
+
+[node name="GPUTrail3D" type="GPUParticles3D" parent="." unique_id=2115582276]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+amount = 25
+lifetime = 25.0
+explosiveness = 1.0
+fixed_fps = 143
+process_material = SubResource("ShaderMaterial_actw8")
+draw_pass_1 = SubResource("QuadMesh_vlvgr")
+script = ExtResource("3_g6k3p")
+length = 25
+length_seconds = 0.17482517482517482
+texture = ExtResource("3_32yc0")
+color_ramp = SubResource("GradientTexture1D_g6k3p")
+curve = SubResource("CurveTexture_ckb4l")
+vertical_texture = true
+billboard = true
+_defaults_have_been_set = true
+metadata/_custom_type_script = "uid://d5uy3jx36tvx"
+
+[node name="Ricochet" parent="." unique_id=105193290 instance=ExtResource("7_ww120")]
+
+[node name="MetalHit" parent="." unique_id=731540104 instance=ExtResource("8_ay0uo")]
+
+[node name="WaterHit" parent="." unique_id=847069402 instance=ExtResource("9_shjq1")]

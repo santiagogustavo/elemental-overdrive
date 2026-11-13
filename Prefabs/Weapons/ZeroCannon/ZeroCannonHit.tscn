@@ -1,0 +1,154 @@
+[gd_scene format=3 uid="uid://bqkap6oi5rk2c"]
+
+[ext_resource type="PackedScene" uid="uid://cnpyrs6ijr5fd" path="res://Prefabs/Particles/HitSpark.tscn" id="1_jljmy"]
+[ext_resource type="Script" uid="uid://ew62pnepb0kd" path="res://Scripts/QueueFreeTimeout.gd" id="1_q4wrt"]
+[ext_resource type="Texture2D" uid="uid://ch40erasf2ipd" path="res://Textures/ZeroCannon/ZEROFREEZE.DTX.png" id="2_3uenp"]
+[ext_resource type="Material" uid="uid://cfcvl447wxcut" path="res://Materials/Particles/Spark.tres" id="3_wlwav"]
+[ext_resource type="Script" uid="uid://bjaqbggo1nseg" path="res://Scripts/RandomDecal.gd" id="5_m2f4e"]
+[ext_resource type="Texture2D" uid="uid://b2xj6lnl725x6" path="res://Textures/ZeroCannon/ZEROFREEZE.DTX.EMM.png" id="5_r7ymh"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3uenp"]
+lifetime_randomness = 1.0
+particle_flag_align_y = true
+angle_min = -60.0
+angle_max = 60.0
+direction = Vector3(0, 0, -1)
+spread = 30.0
+initial_velocity_min = 10.0
+initial_velocity_max = 30.0
+scale_min = 0.2
+color = Color(0, 0.8862745, 0.8666667, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_m2f4e"]
+material = ExtResource("3_wlwav")
+size = Vector2(0.15, 0.6)
+
+[sub_resource type="Animation" id="Animation_3uenp"]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RaySpark:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Decal:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Decal:emission_energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_q4wrt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RaySpark:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Decal:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Decal:emission_energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wlwav"]
+_data = {
+&"Idle": SubResource("Animation_3uenp"),
+&"RESET": SubResource("Animation_q4wrt")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_q4wrt"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wlwav"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q4wrt"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0i88t"]
+states/Idle/node = SubResource("AnimationNodeAnimation_q4wrt")
+states/Idle/position = Vector2(541, 100)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_wlwav"), "Idle", "End", SubResource("AnimationNodeStateMachineTransition_q4wrt")]
+
+[node name="ZeroCannonHit" type="Node3D" unique_id=969513326]
+script = ExtResource("1_q4wrt")
+timeout = 1.0
+metadata/_custom_type_script = "uid://ew62pnepb0kd"
+
+[node name="RaySpark" parent="." unique_id=1345973130 instance=ExtResource("1_jljmy")]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
+process_material = SubResource("ParticleProcessMaterial_3uenp")
+draw_pass_1 = SubResource("QuadMesh_m2f4e")
+
+[node name="OmniLight3D" parent="RaySpark" index="0" unique_id=1146664659]
+light_color = Color(0, 0.8862745, 0.8666667, 1)
+
+[node name="Decal" type="Decal" parent="." unique_id=993188975]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+size = Vector3(0.5, 0.25, 0.5)
+texture_albedo = ExtResource("2_3uenp")
+texture_emission = ExtResource("5_r7ymh")
+script = ExtResource("5_m2f4e")
+metadata/_custom_type_script = "uid://bjaqbggo1nseg"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=192613059]
+libraries/ = SubResource("AnimationLibrary_wlwav")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1354635875]
+callback_mode_discrete = 0
+tree_root = SubResource("AnimationNodeStateMachine_0i88t")
+anim_player = NodePath("../AnimationPlayer")
+
+[editable path="RaySpark"]
