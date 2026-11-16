@@ -140,6 +140,7 @@ timeout = 1.0
 metadata/_custom_type_script = "uid://ew62pnepb0kd"
 
 [node name="RaySpark" parent="." unique_id=1345973130 instance=ExtResource("3_3cjhe")]
+amount = 30
 process_material = SubResource("ParticleProcessMaterial_n22i3")
 
 [node name="OmniLight3D" parent="RaySpark" index="0" unique_id=1146664659]

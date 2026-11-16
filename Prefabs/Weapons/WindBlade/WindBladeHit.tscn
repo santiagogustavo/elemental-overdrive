@@ -181,16 +181,20 @@ metadata/_custom_type_script = "uid://ew62pnepb0kd"
 transform = Transform3D(3, 0, 0, 0, -4.371139e-08, -3, 0, 1, -1.3113416e-07, 0, 0, 0)
 
 [node name="Zaps" parent="VFXBallLightning_01" index="0" unique_id=1548295806]
+emitting = true
 amount = 16
 
 [node name="ZapsExtra" parent="VFXBallLightning_01" index="1" unique_id=758044236]
+emitting = true
 amount = 16
 
 [node name="Glow" parent="VFXBallLightning_01" index="2" unique_id=38197820]
+emitting = true
 draw_pass_1 = SubResource("SphereMesh_bupvm")
 
 [node name="Star" parent="VFXBallLightning_01" index="3" unique_id=450950571]
 material_override = SubResource("ShaderMaterial_ykvtu")
+emitting = true
 draw_pass_1 = SubResource("QuadMesh_bupvm")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1412876273]

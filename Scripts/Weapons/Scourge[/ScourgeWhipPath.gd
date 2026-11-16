@@ -8,4 +8,4 @@ class_name ScourgeWhipPath
 func _process(delta: float) -> void:
 	path_follow.progress_ratio += whip_time * delta
 	whip_trail.position.y = path_follow.position.y
-	whip_trail.rotation = path_follow.rotation
+	whip_trail.rotation.x = path_follow.rotation.x

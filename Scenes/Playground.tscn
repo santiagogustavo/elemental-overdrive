@@ -1,8 +1,22 @@
 [gd_scene format=3 uid="uid://bjm7m8dar3cha"]
 
+[ext_resource type="Texture2D" uid="uid://c1mu01tsfbxjg" path="res://Textures/Skyboxes/Panorama_Sky_11-512x512.png" id="1_a4k3g"]
 [ext_resource type="Texture2D" uid="uid://crpet1tfu5g52" path="res://Textures/CT_BRICKFLOOR1.DTX.png" id="1_iualk"]
 [ext_resource type="PackedScene" uid="uid://cqvjsqdkreq0p" path="res://Prefabs/Player.tscn" id="2_exwnq"]
 [ext_resource type="Texture2D" uid="uid://dp38d0qde2ci3" path="res://Textures/CT_TILECRUMBLE1A.DTX.png" id="3_eqbnc"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3si4x"]
+panorama = ExtResource("1_a4k3g")
+energy_multiplier = 0.15
+
+[sub_resource type="Sky" id="Sky_ckb4l"]
+sky_material = SubResource("PanoramaSkyMaterial_3si4x")
+
+[sub_resource type="Environment" id="Environment_0i88t"]
+background_mode = 2
+sky = SubResource("Sky_ckb4l")
+glow_enabled = true
+glow_bloom = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xtv6o"]
 albedo_texture = ExtResource("1_iualk")
@@ -26,6 +40,9 @@ uv1_triplanar = true
 data = PackedVector3Array(-3.5, 0.5, 3.5, 3.5, 0.5, 3.5, -3.5, -0.5, 3.5, 3.5, 0.5, 3.5, 3.5, -0.5, 3.5, -3.5, -0.5, 3.5, 3.5, 0.5, -3.5, -3.5, 0.5, -3.5, 3.5, -0.5, -3.5, -3.5, 0.5, -3.5, -3.5, -0.5, -3.5, 3.5, -0.5, -3.5, 3.5, 0.5, 3.5, 3.5, 0.5, -3.5, 3.5, -0.5, 3.5, 3.5, 0.5, -3.5, 3.5, -0.5, -3.5, 3.5, -0.5, 3.5, -3.5, 0.5, -3.5, -3.5, 0.5, 3.5, -3.5, -0.5, -3.5, -3.5, 0.5, 3.5, -3.5, -0.5, 3.5, -3.5, -0.5, -3.5, 3.5, 0.5, 3.5, -3.5, 0.5, 3.5, 3.5, 0.5, -3.5, -3.5, 0.5, 3.5, -3.5, 0.5, -3.5, 3.5, 0.5, -3.5, -3.5, -0.5, 3.5, 3.5, -0.5, 3.5, -3.5, -0.5, -3.5, 3.5, -0.5, 3.5, 3.5, -0.5, -3.5, -3.5, -0.5, -3.5)
 
 [node name="Playground" type="Node3D" unique_id=1336418507]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1113481383]
+environment = SubResource("Environment_0i88t")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1580529125]
 mesh = SubResource("BoxMesh_xtv6o")
@@ -55,10 +72,3 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D" unique_id=1030136003]
 shape = SubResource("ConcavePolygonShape3D_eqbnc")
 metadata/_edit_lock_ = true
-
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=2059530989]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3, 0)
-layers = 3
-light_color = Color(0, 0.8509804, 1, 1)
-light_energy = 2.0
-omni_range = 50.0

@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://busy6rbb605wt" path="res://Scripts/Weapon.gd" id="1_spahc"]
 [ext_resource type="PackedScene" uid="uid://d1jor874otgxg" path="res://Prefabs/Weapons/WindBlade/WindBladeBullet.tscn" id="2_71n3c"]
 [ext_resource type="PackedScene" uid="uid://ccykrc2giv0fo" path="res://Models/WindBlade.glb" id="2_aaeq6"]
-[ext_resource type="Animation" uid="uid://k5l1cm4btxwe" path="res://Animations/Weapons/WindBlade/AmbA.res" id="3_turqq"]
+[ext_resource type="Animation" uid="uid://cptxf4tql5k7h" path="res://Animations/Weapons/WindBlade/AmbA.res" id="3_turqq"]
 [ext_resource type="Texture2D" uid="uid://uw4hpimcmm2w" path="res://Textures/muzzle2.png" id="4_6lmsv"]
-[ext_resource type="Animation" uid="uid://dpyviq2vc0rhv" path="res://Animations/Weapons/WindBlade/AmbC.res" id="4_hr7gp"]
+[ext_resource type="Animation" uid="uid://bfrmnkrnasyy8" path="res://Animations/Weapons/WindBlade/AmbC.res" id="4_hr7gp"]
 [ext_resource type="Animation" uid="uid://8mgy1i18revg" path="res://Animations/Weapons/WindBlade/Attack.res" id="5_wweai"]
-[ext_resource type="Animation" uid="uid://csp4i24ouh7xx" path="res://Animations/Weapons/WindBlade/Away.res" id="6_71n3c"]
-[ext_resource type="Animation" uid="uid://wdumq6u1q3pf" path="res://Animations/Weapons/WindBlade/Ready.res" id="7_6lmsv"]
+[ext_resource type="Animation" uid="uid://bwggk74gnb5ei" path="res://Animations/Weapons/WindBlade/Away.res" id="6_71n3c"]
+[ext_resource type="Animation" uid="uid://m4k40c58bpqg" path="res://Animations/Weapons/WindBlade/Ready.res" id="7_6lmsv"]
 [ext_resource type="Animation" uid="uid://cwtx0rrcokjdy" path="res://Animations/Weapons/WindBlade/Static.res" id="8_86v0f"]
 [ext_resource type="AudioStream" uid="uid://cym4jjma64yof" path="res://Sounds/Weapons/WindBlade/READY.WAV" id="9_hr7gp"]
 [ext_resource type="AudioStream" uid="uid://bm3qd3gk6pkls" path="res://Sounds/Weapons/WindBlade/ATTACK.WAV" id="10_wweai"]
@@ -206,9 +206,9 @@ metadata/_custom_type_script = "uid://busy6rbb605wt"
 [node name="WindBlade" parent="." unique_id=1674440480 instance=ExtResource("2_aaeq6")]
 transform = Transform3D(-1, 0, 0, 0, 1, -8.742278e-08, 0, 8.742278e-08, 1, 0, 0, 0)
 
-[node name="Skeleton3D" parent="WindBlade/WINDBLADE" parent_id_path=PackedInt32Array(1674440480, 998655996) index="0" unique_id=170718963]
+[node name="Skeleton3D" parent="WindBlade/WINDBLADE" parent_id_path=PackedInt32Array(1674440480, 1515235685) index="0" unique_id=1004281719]
 bones/1/position = Vector3(0.3399993, -0.24499929, -0.07250127)
-bones/1/rotation = Quaternion(-0.038945843, -0.10394496, -0.045863677, 0.99276143)
+bones/1/rotation = Quaternion(-0.041003972, -0.103836, -0.049269997, 0.9925267)
 bones/2/rotation = Quaternion(0.09639268, 0.022192264, -0.01591891, 0.9949686)
 bones/4/position = Vector3(-0.0024999816, 0.08750003, 0.13249993)
 bones/5/position = Vector3(-0.041133747, 0.047500025, 0.13249998)
@@ -217,11 +217,11 @@ bones/7/position = Vector3(-0.092000015, -0.0074999887, 0.13249998)
 bones/8/position = Vector3(-0.0902594, -0.047500018, 0.13250001)
 bones/10/position = Vector3(-3.0174853e-08, 0.1, 0.027500018)
 
-[node name="Piece" parent="WindBlade/WINDBLADE/Skeleton3D" index="0" unique_id=206033817]
+[node name="Piece" parent="WindBlade/WINDBLADE/Skeleton3D" index="0" unique_id=1729546795]
 layers = 2
 
 [node name="Muzzle" type="BoneAttachment3D" parent="WindBlade/WINDBLADE/Skeleton3D" index="1" unique_id=1257790608]
-transform = Transform3D(0.97418386, 0.101278305, -0.2017632, 0.2099575, -0.07800353, 0.9745942, 0.08296698, -0.99179536, -0.097253956, 0.24563274, 0.44234473, 0.050158188)
+transform = Transform3D(0.973581, 0.10842936, -0.20095511, 0.21016057, -0.08137019, 0.97427505, 0.089288265, -0.9907683, -0.10200808, 0.24709526, 0.44168925, 0.04773952)
 visible = false
 bone_name = "#muzzle"
 bone_idx = 9

@@ -41,7 +41,7 @@ shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/color_ramp = SubResource("GradientTexture1D_b68vd")
 shader_parameter/curve = SubResource("CurveTexture_0i88t")
 shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
-shader_parameter/flags = 33
+shader_parameter/flags = 41
 
 [sub_resource type="QuadMesh" id="QuadMesh_iu2cb"]
 material = SubResource("ShaderMaterial_ltk3w")
@@ -85,7 +85,6 @@ texture = ExtResource("3_tk2ia")
 color_ramp = SubResource("GradientTexture1D_b68vd")
 curve = SubResource("CurveTexture_0i88t")
 vertical_texture = true
-dewiggle = false
 _defaults_have_been_set = true
 metadata/_custom_type_script = "uid://d5uy3jx36tvx"
 
