@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bpwvbj7x87f8s"]
+
+[ext_resource type="Texture2D" uid="uid://crhmrfl2sx83l" path="res://Textures/ThornBlade/THORNBLADE.DTX.png" id="1_uyv4c"]
+[ext_resource type="Texture2D" uid="uid://becbmkmqaqhk0" path="res://Textures/ThornBlade/THORNBLADE.DTX.OCC.png" id="2_vrhpv"]
+
+[resource]
+albedo_texture = ExtResource("1_uyv4c")
+ao_enabled = true
+ao_light_affect = 1.0
+ao_texture = ExtResource("2_vrhpv")

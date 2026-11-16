@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://p5s40swu6bl8"]
+
+[ext_resource type="PackedScene" uid="uid://cnpyrs6ijr5fd" path="res://Prefabs/Particles/HitSpark.tscn" id="1_csavn"]
+[ext_resource type="Script" uid="uid://ew62pnepb0kd" path="res://Scripts/QueueFreeTimeout.gd" id="1_wkqsh"]
+[ext_resource type="Material" uid="uid://cfcvl447wxcut" path="res://Materials/Particles/Spark.tres" id="2_wkqsh"]
+[ext_resource type="AudioStream" uid="uid://cui6mafuhl581" path="res://Sounds/Weapons/BeastClaws/CLAWWALLHIT1.WAV" id="3_rgb85"]
+[ext_resource type="AudioStream" uid="uid://ddn678pfai12k" path="res://Sounds/Weapons/BeastClaws/CLAWWALLHIT2.WAV" id="4_xfia1"]
+[ext_resource type="AudioStream" uid="uid://cijlpf36wfual" path="res://Sounds/Weapons/BeastClaws/CLAWWALLHIT3.WAV" id="5_da6q6"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_q8vek"]
+material = ExtResource("2_wkqsh")
+size = Vector2(0.1, 0.5)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_eqbnc"]
+streams_count = 3
+stream_0/stream = ExtResource("3_rgb85")
+stream_1/stream = ExtResource("4_xfia1")
+stream_2/stream = ExtResource("5_da6q6")
+
+[sub_resource type="Animation" id="Animation_j86ij"]
+resource_name = "Hit"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RaySpark:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WallHit:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_x3b6r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RaySpark:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WallHit:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_csavn"]
+_data = {
+&"Hit": SubResource("Animation_j86ij"),
+&"RESET": SubResource("Animation_x3b6r")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_j86ij"]
+animation = &"Hit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x3b6r"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_wkqsh"]
+states/Hit/node = SubResource("AnimationNodeAnimation_j86ij")
+states/Hit/position = Vector2(541, 100)
+transitions = ["Start", "Hit", SubResource("AnimationNodeStateMachineTransition_x3b6r")]
+
+[node name="BeastClawsHit" type="Node3D" unique_id=1182662602]
+script = ExtResource("1_wkqsh")
+timeout = 1.0
+metadata/_custom_type_script = "uid://ew62pnepb0kd"
+
+[node name="RaySpark" parent="." unique_id=1345973130 instance=ExtResource("1_csavn")]
+amount = 20
+draw_pass_1 = SubResource("QuadMesh_q8vek")
+
+[node name="WallHit" type="AudioStreamPlayer3D" parent="." unique_id=898149720]
+stream = SubResource("AudioStreamRandomizer_eqbnc")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1574057122]
+libraries/ = SubResource("AnimationLibrary_csavn")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1481391138]
+callback_mode_discrete = 0
+tree_root = SubResource("AnimationNodeStateMachine_wkqsh")
+anim_player = NodePath("../AnimationPlayer")

@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bkccuubpf6jpm"]
+
+[ext_resource type="Texture2D" uid="uid://cubqjrshkong5" path="res://Textures/ThornBlade/THORNBLADE_SHEATHE.DTX.png" id="1_cr21e"]
+
+[resource]
+transparency = 4
+albedo_texture = ExtResource("1_cr21e")
+emission_enabled = true
+emission_texture = ExtResource("1_cr21e")

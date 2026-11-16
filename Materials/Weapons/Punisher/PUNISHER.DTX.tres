@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://k0dpuao26fxy"]
+
+[ext_resource type="Texture2D" uid="uid://c5uidu6jberkg" path="res://Textures/Punisher/PUNISHER.DTX.png" id="1_2ff3n"]
+[ext_resource type="Texture2D" uid="uid://bi5cq5q0s6m3s" path="res://Textures/Punisher/PUNISHER.DTX.OCC.png" id="2_sqw7t"]
+
+[resource]
+albedo_texture = ExtResource("1_2ff3n")
+ao_enabled = true
+ao_light_affect = 1.0
+ao_texture = ExtResource("2_sqw7t")

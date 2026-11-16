@@ -1,6 +1,7 @@
 extends Node3D
 class_name Weapon
 
+signal attack
 signal away
 
 @export var idle_timeout: float = 5.0
@@ -11,6 +12,7 @@ signal away
 @export var bullets_per_shot: int = 1
 @export var target_spread: float = 0.0
 @export var muzzle_spread: float = 0.0
+@export var blades: Array[Blade]
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var playback: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
@@ -30,6 +32,7 @@ func _process(delta: float) -> void:
 		handle_idle_timeout()
 
 func handle_attack() -> void:
+	attack.emit()
 	for shot in range(bullets_per_shot):
 		var bullet_instance: Bullet = bullet_prefab.instantiate()
 		get_tree().root.add_child(bullet_instance)

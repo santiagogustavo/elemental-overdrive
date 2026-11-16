@@ -1,16 +1,80 @@
 [gd_scene format=3 uid="uid://jrh8bxx85g2q"]
 
-[sub_resource type="Gradient" id="Gradient_niork"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+[ext_resource type="Texture2D" uid="uid://drnp6aygi56r6" path="res://Textures/UI/crosshair.png" id="1_6nqa6"]
+[ext_resource type="Script" uid="uid://bqk32j0j1bn75" path="res://Scripts/UI/PlayerHUD.gd" id="1_vlq7a"]
+[ext_resource type="Texture2D" uid="uid://dtxgad3i2e0mp" path="res://Textures/UI/status_bar.png" id="3_uhd0b"]
+[ext_resource type="Texture2D" uid="uid://ddgxxq3n0i7lk" path="res://Textures/UI/Avatars/Luxx.png" id="4_s7acx"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_0i88t"]
-gradient = SubResource("Gradient_niork")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.7, 0.3)
-metadata/_snap_enabled = true
+[sub_resource type="Animation" id="Animation_6nqa6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vlq7a"]
+resource_name = "Shoot"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2, 2), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uhd0b"]
+_data = {
+&"RESET": SubResource("Animation_6nqa6"),
+&"Shoot": SubResource("Animation_vlq7a")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s7acx"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6nqa6"]
+animation = &"Shoot"
+
+[sub_resource type="AnimationNodeTimeSeek" id="AnimationNodeTimeSeek_vlq7a"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_uhd0b"]
+graph_offset = Vector2(-430, 104)
+nodes/TimeSeek/node = SubResource("AnimationNodeTimeSeek_vlq7a")
+nodes/TimeSeek/position = Vector2(80, 140)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_6nqa6")
+nodes/Animation/position = Vector2(-240, 120)
+node_connections = [&"output", 0, &"TimeSeek", &"TimeSeek", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gkp7e"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vlq7a"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_6nqa6"]
+states/RESET/node = SubResource("AnimationNodeAnimation_s7acx")
+states/RESET/position = Vector2(546, 100)
+states/Shoot/node = SubResource("AnimationNodeBlendTree_uhd0b")
+states/Shoot/position = Vector2(546, -15)
+transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_gkp7e"), "Shoot", "RESET", SubResource("AnimationNodeStateMachineTransition_vlq7a")]
+graph_offset = Vector2(7, -40)
 
 [node name="PlayerHUD" type="CanvasLayer" unique_id=642078767]
+script = ExtResource("1_vlq7a")
 
 [node name="Control" type="Control" parent="." unique_id=1807983317]
 layout_mode = 3
@@ -27,13 +91,70 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -8.0
-offset_top = -8.0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
-texture = SubResource("GradientTexture2D_0i88t")
+texture = ExtResource("1_6nqa6")
 expand_mode = 1
 stretch_mode = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Crosshair" unique_id=1681514352]
+libraries/ = SubResource("AnimationLibrary_uhd0b")
+
+[node name="AnimationTree" type="AnimationTree" parent="Control/Crosshair" unique_id=1147438288]
+tree_root = SubResource("AnimationNodeStateMachine_6nqa6")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Shoot/TimeSeek/seek_request = -1.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=596332831]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Control" type="Control" parent="Control/MarginContainer" unique_id=220897017]
+layout_mode = 2
+
+[node name="StatusBar" type="TextureRect" parent="Control/MarginContainer/Control" unique_id=1832741174]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -142.0
+offset_right = 330.6269
+grow_vertical = 0
+texture = ExtResource("3_uhd0b")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Avatar" type="TextureRect" parent="Control/MarginContainer/Control/StatusBar" unique_id=1798151569]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 30.0
+offset_top = 20.0
+offset_right = 108.0
+offset_bottom = 115.283936
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("4_s7acx")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ColorRect" type="ColorRect" parent="Control/MarginContainer/Control/StatusBar/Avatar" unique_id=1039059407]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

@@ -10,6 +10,8 @@ class_name Player
 @export_group("Look Settings")
 @export var mouse_sensitivity: float = 0.003
 @export var controller_sensitivity: float = 3.0
+@export_range(70.0, 100.0) var world_camera_fov: float = 95.0
+@export var weapon_camera_fov_diff: float = 20.0
 @export var zoom_fov_factor: float = 20.0
 
 @export_group("Crouch Settings")
@@ -47,6 +49,8 @@ class_name Player
 @onready var target_raycast: RayCast3D = $WorldCamera/TargetRaycast
 @onready var debug_raycast_target: MeshInstance3D = $WorldCamera/TargetRaycast/MeshInstance3D
 
+@onready var player_hud: PlayerHUD = $PlayerHUD
+
 var direction: Vector3 = Vector3.ZERO
 var input_direction: Vector2 = Vector2.ZERO
 
@@ -71,9 +75,14 @@ var can_change_weapon: bool = true
 @onready var initial_weapon_camera_fov: float = weapon_camera.fov
 
 func _ready() -> void:
+	update_camera_fov(world_camera_fov)
 	for available_weapon in available_weapons:
-		var weapon_instance = available_weapon.instantiate() as Weapon
+		var weapon_instance: Weapon = available_weapon.instantiate() as Weapon
+		if weapon_instance.blades != null:
+			for blade in weapon_instance.blades:
+				blade.camera = world_camera
 		weapon_instances.append(weapon_instance)
+		weapon_instance.attack.connect(player_hud.handle_crosshair_shoot)
 		weapon_instance.away.connect(func ():
 			weapon_camera.remove_child(weapon_instance)
 			weapon_instances[selected_weapon].holstered = false
@@ -240,6 +249,10 @@ func compute_weapon_camera(delta: float) -> void:
 	# 3. Aplicação fluida na câmera da arma
 	weapon_camera.h_offset = move_toward(weapon_camera.h_offset, weapon_offset_x, delta * 10.0)
 	weapon_camera.v_offset = move_toward(weapon_camera.v_offset, weapon_offset_y, delta * 10.0)
+
+func update_camera_fov(fov) -> void:
+	initial_world_camera_fov = fov
+	initial_weapon_camera_fov = fov - weapon_camera_fov_diff
 
 func compute_camera_fov(delta: float) -> void:
 	var new_world_camera_fov = (

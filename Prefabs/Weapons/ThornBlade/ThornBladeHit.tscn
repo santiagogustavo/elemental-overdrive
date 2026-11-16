@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://c1qpq8aecnyb7"]
+
+[ext_resource type="Script" uid="uid://ew62pnepb0kd" path="res://Scripts/QueueFreeTimeout.gd" id="1_j86ij"]
+[ext_resource type="AudioStream" uid="uid://bx3r3mv17qf28" path="res://Sounds/Weapons/ThornBlade/THORNWALLHIT1.WAV" id="1_t6puc"]
+[ext_resource type="PackedScene" uid="uid://cnpyrs6ijr5fd" path="res://Prefabs/Particles/HitSpark.tscn" id="1_yudiw"]
+[ext_resource type="AudioStream" uid="uid://c6xka16e4g450" path="res://Sounds/Weapons/ThornBlade/THORNWALLHIT2.WAV" id="2_yudiw"]
+[ext_resource type="AudioStream" uid="uid://clh1q71yg2g5l" path="res://Sounds/Weapons/ThornBlade/THORNWALLHIT3.WAV" id="3_j86ij"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_x3b6r"]
+streams_count = 3
+stream_0/stream = ExtResource("1_t6puc")
+stream_1/stream = ExtResource("2_yudiw")
+stream_2/stream = ExtResource("3_j86ij")
+
+[sub_resource type="Animation" id="Animation_j86ij"]
+resource_name = "Hit"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RaySpark:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WallHit:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_x3b6r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RaySpark:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WallHit:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bu7cc"]
+_data = {
+&"Hit": SubResource("Animation_j86ij"),
+&"RESET": SubResource("Animation_x3b6r")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_j86ij"]
+animation = &"Hit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x3b6r"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_j86ij"]
+states/Hit/node = SubResource("AnimationNodeAnimation_j86ij")
+states/Hit/position = Vector2(541, 100)
+transitions = ["Start", "Hit", SubResource("AnimationNodeStateMachineTransition_x3b6r")]
+
+[node name="ThornBladeHit" type="Node3D" unique_id=583648415]
+script = ExtResource("1_j86ij")
+timeout = 1.0
+metadata/_custom_type_script = "uid://ew62pnepb0kd"
+
+[node name="RaySpark" parent="." unique_id=1345973130 instance=ExtResource("1_yudiw")]
+amount = 20
+
+[node name="WallHit" type="AudioStreamPlayer3D" parent="." unique_id=1041532670]
+stream = SubResource("AudioStreamRandomizer_x3b6r")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=328984430]
+libraries/ = SubResource("AnimationLibrary_bu7cc")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=923015109]
+callback_mode_discrete = 0
+tree_root = SubResource("AnimationNodeStateMachine_j86ij")
+anim_player = NodePath("../AnimationPlayer")

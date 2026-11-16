@@ -1,0 +1,356 @@
+[gd_scene format=3 uid="uid://cpmm8u85bn1ox"]
+
+[ext_resource type="Script" uid="uid://busy6rbb605wt" path="res://Scripts/Weapon.gd" id="1_yxerq"]
+[ext_resource type="PackedScene" uid="uid://t51j36aoxoy0" path="res://Models/BeastClaws.glb" id="2_qeg22"]
+[ext_resource type="PackedScene" uid="uid://de1vp7g17qxy2" path="res://Prefabs/Weapons/BeastClaws/BeastClawsTrail.tscn" id="3_0dmus"]
+[ext_resource type="Animation" uid="uid://d1kw3r2w11y1y" path="res://Animations/Weapons/BeastClaws/AmbC.anim" id="3_oci2c"]
+[ext_resource type="Script" uid="uid://ctgxvt831702x" path="res://Scripts/Blade.gd" id="3_u0lg5"]
+[ext_resource type="Animation" uid="uid://y1atkl7dj66k" path="res://Animations/Weapons/BeastClaws/Attack.anim" id="4_0dmus"]
+[ext_resource type="PackedScene" uid="uid://p5s40swu6bl8" path="res://Prefabs/Weapons/BeastClaws/BeastClawsHit.tscn" id="4_u0lg5"]
+[ext_resource type="Animation" uid="uid://bul1khj0oej14" path="res://Animations/Weapons/BeastClaws/Away.anim" id="5_u0lg5"]
+[ext_resource type="Animation" uid="uid://dtgn4hc4jidty" path="res://Animations/Weapons/BeastClaws/Ready.anim" id="6_ux0k4"]
+[ext_resource type="AudioStream" uid="uid://bgiseyj08t4ey" path="res://Sounds/Weapons/BeastClaws/READY.WAV" id="10_yc83o"]
+[ext_resource type="AudioStream" uid="uid://bvv7luuedo6oh" path="res://Sounds/Weapons/BeastClaws/ATTACK.WAV" id="11_yc83o"]
+
+[sub_resource type="Animation" id="Animation_qeg22"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BEASTCLAWS/Skeleton3D/LeftHand/Blade/BeastClawsTrail4:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BEASTCLAWS/Skeleton3D/LeftHand/Blade/BeastClawsTrail3:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BEASTCLAWS/Skeleton3D/LeftHand/Blade/BeastClawsTrail2:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BEASTCLAWS/Skeleton3D/LeftHand/Blade/BeastClawsTrail:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("BEASTCLAWS/Skeleton3D/LeftHand/Blade/BeastClawsTrail5:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("BEASTCLAWS/Skeleton3D/RightHand/Blade/BeastClawsTrail5:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("BEASTCLAWS/Skeleton3D/RightHand/Blade/BeastClawsTrail:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("BEASTCLAWS/Skeleton3D/RightHand/Blade/BeastClawsTrail2:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("BEASTCLAWS/Skeleton3D/RightHand/Blade/BeastClawsTrail3:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("BEASTCLAWS/Skeleton3D/RightHand/Blade/BeastClawsTrail4:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("../Ready:playing")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("../Attack:playing")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yc83o"]
+_data = {
+&"AmbC": ExtResource("3_oci2c"),
+&"Attack": ExtResource("4_0dmus"),
+&"Away": ExtResource("5_u0lg5"),
+&"RESET": SubResource("Animation_qeg22"),
+&"Ready": ExtResource("6_ux0k4")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qeg22"]
+animation = &"Away"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oci2c"]
+animation = &"AmbC"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0dmus"]
+animation = &"Attack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u0lg5"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ux0k4"]
+break_loop_at_end = true
+advance_mode = 2
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yc83o"]
+break_loop_at_end = true
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_not_attacking"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3eos5"]
+states/AmbC/node = SubResource("AnimationNodeAnimation_oci2c")
+states/AmbC/position = Vector2(520, 100)
+states/Attack/node = SubResource("AnimationNodeAnimation_0dmus")
+states/Attack/position = Vector2(520, -49)
+transitions = ["Start", "AmbC", SubResource("AnimationNodeStateMachineTransition_u0lg5"), "AmbC", "Attack", SubResource("AnimationNodeStateMachineTransition_ux0k4"), "Attack", "AmbC", SubResource("AnimationNodeStateMachineTransition_yc83o")]
+graph_offset = Vector2(-24, -58)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3eos5"]
+animation = &"Ready"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_634bu"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j3d5n"]
+advance_mode = 2
+advance_condition = &"draw"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t852f"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ie7ob"]
+break_loop_at_end = true
+advance_mode = 2
+advance_condition = &"holster"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0i88t"]
+states/Away/node = SubResource("AnimationNodeAnimation_qeg22")
+states/Away/position = Vector2(442, -87)
+states/Idle/node = SubResource("AnimationNodeStateMachine_3eos5")
+states/Idle/position = Vector2(680, 100)
+states/Ready/node = SubResource("AnimationNodeAnimation_3eos5")
+states/Ready/position = Vector2(442, 100)
+transitions = ["Start", "Ready", SubResource("AnimationNodeStateMachineTransition_634bu"), "Away", "Ready", SubResource("AnimationNodeStateMachineTransition_j3d5n"), "Ready", "Idle", SubResource("AnimationNodeStateMachineTransition_t852f"), "Idle", "Away", SubResource("AnimationNodeStateMachineTransition_ie7ob")]
+graph_offset = Vector2(48, -84)
+
+[node name="BeastClaws" type="Node3D" unique_id=1211312097 node_paths=PackedStringArray("blades")]
+visible = false
+script = ExtResource("1_yxerq")
+blades = [NodePath("BeastClaws/BEASTCLAWS/Skeleton3D/LeftHand/Blade"), NodePath("BeastClaws/BEASTCLAWS/Skeleton3D/RightHand/Blade")]
+metadata/_custom_type_script = "uid://busy6rbb605wt"
+
+[node name="BeastClaws" parent="." unique_id=1951434451 instance=ExtResource("2_qeg22")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="BeastClaws/BEASTCLAWS" parent_id_path=PackedInt32Array(1951434451, 1955818060) index="0" unique_id=361002414]
+bones/0/rotation = Quaternion(1, 0, 0, -1.7114271e-08)
+bones/1/position = Vector3(1.2999994, 1.4749995, -5.075)
+bones/2/position = Vector3(-0.10700806, 0.45067102, -0.032713525)
+bones/3/position = Vector3(0.019187938, 0.4298792, 0.021465462)
+bones/4/position = Vector3(-0.09713021, 0.69643736, -0.21045509)
+bones/5/position = Vector3(-0.47456652, -0.72915137, 0.16202116)
+bones/6/position = Vector3(-1.7999996, 2.0249999, -4.9749985)
+bones/7/position = Vector3(-0.086191446, 0.43654338, -0.12550446)
+bones/8/position = Vector3(-0.018636249, 0.51746964, -0.0017255698)
+bones/9/position = Vector3(-0.008778852, 0.79164004, -0.44592974)
+bones/10/position = Vector3(0.17026573, -0.57143635, 0.106517114)
+bones/11/position = Vector3(0, 0.32499996, -1.1124276e-08)
+
+[node name="Piece" parent="BeastClaws/BEASTCLAWS/Skeleton3D" index="0" unique_id=1267438481]
+layers = 2
+blend_shapes/AmbC|1 = 0.04429768
+blend_shapes/AmbC|2 = 0.8089705
+blend_shapes/AmbC|3 = 0.14673182
+
+[node name="LeftHand" type="BoneAttachment3D" parent="BeastClaws/BEASTCLAWS/Skeleton3D" index="1" unique_id=2107538419]
+transform = Transform3D(0.27854648, 0.51336986, 0.8117039, 0.81170386, -0.5775902, 0.08675607, 0.5133702, 0.6346975, -0.57759, 1.2999994, -1.4749997, 5.075)
+bone_name = "#node1"
+bone_idx = 1
+
+[node name="Blade" type="Node3D" parent="BeastClaws/BEASTCLAWS/Skeleton3D/LeftHand" unique_id=1184773908 node_paths=PackedStringArray("blade_target")]
+script = ExtResource("3_u0lg5")
+blade_target = NodePath(".")
+impact_scene = ExtResource("4_u0lg5")
+world_mask = 2
+metadata/_custom_type_script = "uid://ctgxvt831702x"
+
+[node name="BeastClawsTrail5" parent="BeastClaws/BEASTCLAWS/Skeleton3D/LeftHand/Blade" unique_id=244980502 instance=ExtResource("3_0dmus")]
+transform = Transform3D(0.10000001, 0, 3.7252903e-09, 0, 0.10000001, 0, 0, -7.450581e-09, 0.100000024, -0.8000004, -0.50000024, 0.20000076)
+visible = false
+
+[node name="BeastClawsTrail" parent="BeastClaws/BEASTCLAWS/Skeleton3D/LeftHand/Blade" unique_id=1715056565 instance=ExtResource("3_0dmus")]
+transform = Transform3D(0.10000001, 0, 1.8626451e-09, 0, 0.10000001, -3.7252903e-09, 0, -3.7252903e-09, 0.10000001, -2.3841858e-07, 0.2999997, 0)
+visible = false
+
+[node name="BeastClawsTrail2" parent="BeastClaws/BEASTCLAWS/Skeleton3D/LeftHand/Blade" unique_id=1180444116 instance=ExtResource("3_0dmus")]
+transform = Transform3D(0.10000001, 0, 1.8626451e-09, 0, 0.10000001, -3.7252903e-09, 0, -3.7252903e-09, 0.10000001, -2.3841858e-07, 0.70000005, 0.09999943)
+visible = false
+
+[node name="BeastClawsTrail3" parent="BeastClaws/BEASTCLAWS/Skeleton3D/LeftHand/Blade" unique_id=407432072 instance=ExtResource("3_0dmus")]
+transform = Transform3D(0.10000001, 0, 1.8626451e-09, 0, 0.10000001, -3.7252903e-09, 0, -3.7252903e-09, 0.10000001, 0, 0.89999986, 0.3000002)
+visible = false
+
+[node name="BeastClawsTrail4" parent="BeastClaws/BEASTCLAWS/Skeleton3D/LeftHand/Blade" unique_id=863095185 instance=ExtResource("3_0dmus")]
+transform = Transform3D(0.10000001, 0, 1.8626451e-09, 0, 0.10000001, -3.7252903e-09, 0, -3.7252903e-09, 0.10000001, 0, 1.3000002, 0.5999994)
+visible = false
+
+[node name="RightHand" type="BoneAttachment3D" parent="BeastClaws/BEASTCLAWS/Skeleton3D" index="2" unique_id=2039750829]
+transform = Transform3D(-0.62904364, -0.72226065, -0.28747842, -0.2874785, -0.12745771, 0.9492686, -0.72226065, 0.6797751, -0.12745783, -1.7999996, -2.025, 4.9749985)
+bone_name = "#node6"
+bone_idx = 6
+
+[node name="Blade" type="Node3D" parent="BeastClaws/BEASTCLAWS/Skeleton3D/RightHand" unique_id=723590391 node_paths=PackedStringArray("blade_target")]
+script = ExtResource("3_u0lg5")
+blade_target = NodePath(".")
+impact_scene = ExtResource("4_u0lg5")
+metadata/_custom_type_script = "uid://ctgxvt831702x"
+
+[node name="BeastClawsTrail5" parent="BeastClaws/BEASTCLAWS/Skeleton3D/RightHand/Blade" unique_id=1142889776 instance=ExtResource("3_0dmus")]
+transform = Transform3D(0.10000001, 0, -9.313226e-10, 0, 0.10000001, -2.7939677e-09, 9.313226e-10, -3.7252903e-09, 0.10000002, 0.2999999, -0.5000001, 2.7939677e-09)
+visible = false
+
+[node name="BeastClawsTrail" parent="BeastClaws/BEASTCLAWS/Skeleton3D/RightHand/Blade" unique_id=787769142 instance=ExtResource("3_0dmus")]
+transform = Transform3D(0.10000001, 0, 1.8626451e-09, 0, 0.10000001, -3.7252903e-09, 0, -3.7252903e-09, 0.10000001, 0, 0.10000001, -3.7252903e-09)
+visible = false
+
+[node name="BeastClawsTrail2" parent="BeastClaws/BEASTCLAWS/Skeleton3D/RightHand/Blade" unique_id=1773359993 instance=ExtResource("3_0dmus")]
+transform = Transform3D(0.10000001, 0, 1.8626451e-09, 0, 0.10000001, -3.7252903e-09, 0, -3.7252903e-09, 0.10000001, -3.7252903e-09, 0.6, -0.20000005)
+visible = false
+
+[node name="BeastClawsTrail3" parent="BeastClaws/BEASTCLAWS/Skeleton3D/RightHand/Blade" unique_id=418016672 instance=ExtResource("3_0dmus")]
+transform = Transform3D(0.10000001, 0, 1.8626451e-09, 0, 0.10000001, -3.7252903e-09, 0, -3.7252903e-09, 0.10000001, 0.3, 0.6000001, -0.6)
+visible = false
+
+[node name="BeastClawsTrail4" parent="BeastClaws/BEASTCLAWS/Skeleton3D/RightHand/Blade" unique_id=1177409838 instance=ExtResource("3_0dmus")]
+transform = Transform3D(0.10000001, 0, 1.8626451e-09, 0, 0.10000001, -3.7252903e-09, 0, -3.7252903e-09, 0.10000001, 0.8000001, 0.6000001, -1.1000001)
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BeastClaws" unique_id=1293459596]
+libraries/ = SubResource("AnimationLibrary_yc83o")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1141828389]
+root_node = NodePath("../BeastClaws")
+callback_mode_discrete = 0
+tree_root = SubResource("AnimationNodeStateMachine_0i88t")
+anim_player = NodePath("../BeastClaws/AnimationPlayer")
+parameters/conditions/draw = false
+parameters/conditions/holster = false
+parameters/Idle/conditions/is_attacking = false
+parameters/Idle/conditions/is_not_attacking = false
+
+[node name="Ready" type="AudioStreamPlayer3D" parent="." unique_id=710249566]
+stream = ExtResource("10_yc83o")
+bus = &"Effects"
+
+[node name="Attack" type="AudioStreamPlayer3D" parent="." unique_id=429461202]
+stream = ExtResource("11_yc83o")
+bus = &"Effects"
+
+[editable path="BeastClaws"]

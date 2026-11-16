@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://bf33b451e7ahy"]
+
+[ext_resource type="Script" uid="uid://ew62pnepb0kd" path="res://Scripts/QueueFreeTimeout.gd" id="1_vs2g7"]
+[ext_resource type="PackedScene" uid="uid://cnpyrs6ijr5fd" path="res://Prefabs/Particles/HitSpark.tscn" id="2_n45it"]
+[ext_resource type="AudioStream" uid="uid://dtvbwhspqmp0t" path="res://Sounds/Weapons/Punisher/AXEWALLHIT1.WAV" id="3_ta7wo"]
+[ext_resource type="AudioStream" uid="uid://cxf3wklqlo443" path="res://Sounds/Weapons/Punisher/AXEWALLHIT2.WAV" id="4_mq4yu"]
+[ext_resource type="AudioStream" uid="uid://dyggapkrthkvo" path="res://Sounds/Weapons/Punisher/AXEWALLHIT3.WAV" id="5_egs58"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0i88t"]
+streams_count = 3
+stream_0/stream = ExtResource("3_ta7wo")
+stream_1/stream = ExtResource("4_mq4yu")
+stream_2/stream = ExtResource("5_egs58")
+
+[sub_resource type="Animation" id="Animation_j86ij"]
+resource_name = "Hit"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RaySpark:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WallHit:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_x3b6r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RaySpark:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WallHit:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hkpqn"]
+_data = {
+&"Hit": SubResource("Animation_j86ij"),
+&"RESET": SubResource("Animation_x3b6r")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_j86ij"]
+animation = &"Hit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x3b6r"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_sq27p"]
+states/Hit/node = SubResource("AnimationNodeAnimation_j86ij")
+states/Hit/position = Vector2(541, 100)
+transitions = ["Start", "Hit", SubResource("AnimationNodeStateMachineTransition_x3b6r")]
+
+[node name="PunisherHit" type="Node3D" unique_id=324829580]
+script = ExtResource("1_vs2g7")
+timeout = 1.0
+metadata/_custom_type_script = "uid://ew62pnepb0kd"
+
+[node name="RaySpark" parent="." unique_id=1345973130 instance=ExtResource("2_n45it")]
+amount = 20
+
+[node name="WallHit" type="AudioStreamPlayer3D" parent="." unique_id=1264210726]
+stream = SubResource("AudioStreamRandomizer_0i88t")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=684374202]
+libraries/ = SubResource("AnimationLibrary_hkpqn")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=227834306]
+callback_mode_discrete = 0
+tree_root = SubResource("AnimationNodeStateMachine_sq27p")
+anim_player = NodePath("../AnimationPlayer")

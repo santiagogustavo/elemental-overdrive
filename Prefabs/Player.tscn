@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://bfwaxjgw2t3l7" path="res://Prefabs/Weapons/ZeroCannon/ZeroCannon.tscn" id="2_vxq8l"]
 [ext_resource type="PackedScene" uid="uid://bu0jj67wgryoc" path="res://Prefabs/Weapons/WindBlade/WindBlade.tscn" id="4_vxq8l"]
 [ext_resource type="PackedScene" uid="uid://b12p7hgdlx5je" path="res://Prefabs/Weapons/Scourge/Scourge.tscn" id="5_gg3t4"]
+[ext_resource type="PackedScene" uid="uid://ctpk0qhauo86s" path="res://Prefabs/Weapons/ThornBlade/ThornBlade.tscn" id="6_javds"]
+[ext_resource type="PackedScene" uid="uid://cpmm8u85bn1ox" path="res://Prefabs/Weapons/BeastClaws/BeastClaws.tscn" id="7_3ygst"]
+[ext_resource type="PackedScene" uid="uid://8a6koycrufo" path="res://Prefabs/Weapons/Punisher/Punisher.tscn" id="8_lhekp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0i88t"]
 resource_local_to_scene = true
@@ -23,7 +26,7 @@ height = 0.2
 [node name="Player" type="CharacterBody3D" unique_id=680674564]
 collision_mask = 2
 script = ExtResource("1_rpqav")
-available_weapons = Array[PackedScene]([ExtResource("2_vxq8l"), ExtResource("2_shmu5"), ExtResource("4_vxq8l"), ExtResource("5_gg3t4")])
+available_weapons = Array[PackedScene]([ExtResource("2_vxq8l"), ExtResource("2_shmu5"), ExtResource("4_vxq8l"), ExtResource("5_gg3t4"), ExtResource("6_javds"), ExtResource("7_3ygst"), ExtResource("8_lhekp")])
 
 [node name="PlayerHUD" parent="." unique_id=642078767 instance=ExtResource("2_b43ah")]
 

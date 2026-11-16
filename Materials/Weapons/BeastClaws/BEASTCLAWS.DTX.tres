@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dicyfxompt5t5"]
+
+[ext_resource type="Texture2D" uid="uid://cumarlwcdyudk" path="res://Textures/BeastClaws/BEASTCLAWS.DTX.png" id="1_fw6yj"]
+[ext_resource type="Texture2D" uid="uid://byokeo2cmvuuv" path="res://Textures/BeastClaws/BEASTCLAWS.DTX.OCC.png" id="2_2bhq0"]
+
+[resource]
+albedo_texture = ExtResource("1_fw6yj")
+ao_enabled = true
+ao_light_affect = 1.0
+ao_texture = ExtResource("2_2bhq0")

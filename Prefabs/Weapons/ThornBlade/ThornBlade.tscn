@@ -1,0 +1,194 @@
+[gd_scene format=3 uid="uid://ctpk0qhauo86s"]
+
+[ext_resource type="Script" uid="uid://busy6rbb605wt" path="res://Scripts/Weapon.gd" id="1_qp40u"]
+[ext_resource type="PackedScene" uid="uid://6tmyqi0qok8i" path="res://Models/ThornBlade.glb" id="2_263ot"]
+[ext_resource type="PackedScene" uid="uid://bdlcvgq6144ej" path="res://Prefabs/Weapons/ZeroCannon/ZeroCannonBullet.tscn" id="2_lcnjk"]
+[ext_resource type="AudioStream" uid="uid://djcjb10jcvu34" path="res://Sounds/Weapons/ThornBlade/SHEATHE.WAV" id="3_8ov78"]
+[ext_resource type="Shader" uid="uid://dfp64qj12vy1p" path="res://addons/gputrail/shaders/trail.gdshader" id="3_rneo6"]
+[ext_resource type="AudioStream" uid="uid://cd2yfeoeuc0dl" path="res://Sounds/Weapons/ThornBlade/READY.WAV" id="4_4awfd"]
+[ext_resource type="Shader" uid="uid://1cpiujcq4qbx" path="res://addons/gputrail/shaders/trail_draw_pass.gdshader" id="4_lcnjk"]
+[ext_resource type="Script" uid="uid://ctgxvt831702x" path="res://Scripts/Blade.gd" id="4_oiaqn"]
+[ext_resource type="Texture2D" uid="uid://dceq4187ffmxd" path="res://Textures/ThornBlade/THORNTRAIL.DTX.png" id="5_0aj8g"]
+[ext_resource type="AudioStream" uid="uid://ceoj63e48ognt" path="res://Sounds/Weapons/ThornBlade/ATTACK.WAV" id="5_4awfd"]
+[ext_resource type="PackedScene" uid="uid://c1qpq8aecnyb7" path="res://Prefabs/Weapons/ThornBlade/ThornBladeHit.tscn" id="5_kh5y5"]
+[ext_resource type="Script" uid="uid://d5uy3jx36tvx" path="res://addons/gputrail/GPUTrail3D.gd" id="6_a2v7o"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qkxmn"]
+shader = ExtResource("3_rneo6")
+
+[sub_resource type="Gradient" id="Gradient_oiaqn"]
+colors = PackedColorArray(1, 1, 1, 0.78431374, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0i88t"]
+gradient = SubResource("Gradient_oiaqn")
+
+[sub_resource type="Curve" id="Curve_kh5y5"]
+bake_resolution = 16
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0xuw0"]
+curve = SubResource("Curve_kh5y5")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wcp7u"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_lcnjk")
+shader_parameter/tex = ExtResource("5_0aj8g")
+shader_parameter/mask_strength = 1.0
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/color_ramp = SubResource("GradientTexture1D_0i88t")
+shader_parameter/curve = SubResource("CurveTexture_0xuw0")
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 41
+
+[sub_resource type="QuadMesh" id="QuadMesh_uf82v"]
+material = SubResource("ShaderMaterial_wcp7u")
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_263ot"]
+animation = &"Away"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nlhdu"]
+animation = &"AmbC"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4awfd"]
+animation = &"AttackA"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rneo6"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lcnjk"]
+break_loop_at_end = true
+advance_mode = 2
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0aj8g"]
+break_loop_at_end = true
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_not_attacking"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_nlhdu"]
+states/AmbC/node = SubResource("AnimationNodeAnimation_nlhdu")
+states/AmbC/position = Vector2(506, 100)
+states/AttackA/node = SubResource("AnimationNodeAnimation_4awfd")
+states/AttackA/position = Vector2(506, -24)
+transitions = ["Start", "AmbC", SubResource("AnimationNodeStateMachineTransition_rneo6"), "AmbC", "AttackA", SubResource("AnimationNodeStateMachineTransition_lcnjk"), "AttackA", "AmbC", SubResource("AnimationNodeStateMachineTransition_0aj8g")]
+graph_offset = Vector2(41, -80)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8ov78"]
+animation = &"Ready"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4awfd"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p3264"]
+advance_mode = 2
+advance_condition = &"draw"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3vuc7"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_erbwq"]
+advance_mode = 2
+advance_condition = &"holster"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_263ot"]
+states/Away/node = SubResource("AnimationNodeAnimation_263ot")
+states/Away/position = Vector2(420, -38)
+states/End/position = Vector2(898, 100)
+states/Idle/node = SubResource("AnimationNodeStateMachine_nlhdu")
+states/Idle/position = Vector2(642, 100)
+states/Ready/node = SubResource("AnimationNodeAnimation_8ov78")
+states/Ready/position = Vector2(420, 100)
+transitions = ["Start", "Ready", SubResource("AnimationNodeStateMachineTransition_4awfd"), "Away", "Ready", SubResource("AnimationNodeStateMachineTransition_p3264"), "Ready", "Idle", SubResource("AnimationNodeStateMachineTransition_3vuc7"), "Idle", "Away", SubResource("AnimationNodeStateMachineTransition_erbwq")]
+graph_offset = Vector2(103, -46)
+
+[node name="ThornBlade" type="Node3D" unique_id=1097387573 node_paths=PackedStringArray("blades")]
+visible = false
+script = ExtResource("1_qp40u")
+bullet_prefab = ExtResource("2_lcnjk")
+blades = [NodePath("ThornBlade/THORNBLADE/Skeleton3D/BladeTop/Offset/Blade")]
+metadata/_custom_type_script = "uid://busy6rbb605wt"
+
+[node name="ThornBlade" parent="." unique_id=1144692574 instance=ExtResource("2_263ot")]
+transform = Transform3D(-1, 0, 0, 0, 1, -8.742278e-08, 0, 8.742278e-08, 1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="ThornBlade/THORNBLADE" parent_id_path=PackedInt32Array(1144692574, 885506141) index="0" unique_id=1660544852]
+bones/1/position = Vector3(4.5166564, -7.453942, -2.9448545)
+bones/1/rotation = Quaternion(0.14670846, -0.15909196, -0.20774984, 0.95394254)
+bones/2/position = Vector3(0.19896385, 0.050000202, 5.3031673)
+bones/2/rotation = Quaternion(0.066343024, 0.16648339, -0.034903474, 0.98319054)
+bones/3/position = Vector3(-0.033005178, 0.39999935, 1.4068595)
+bones/3/rotation = Quaternion(0.045345295, 0.0012666202, -0.027892886, 0.9985811)
+bones/4/position = Vector3(-0.0500004, 15.40001, -0.6000043)
+bones/5/position = Vector3(-0.09999982, 4.549999, -1.2500001)
+
+[node name="Piece" parent="ThornBlade/THORNBLADE/Skeleton3D" index="0" unique_id=484833082]
+layers = 2
+
+[node name="Sheathe" parent="ThornBlade/THORNBLADE/Skeleton3D" index="1" unique_id=191221586]
+visible = false
+layers = 2
+transparency = 0.5
+
+[node name="BladeTop" type="BoneAttachment3D" parent="ThornBlade/THORNBLADE/Skeleton3D" index="2" unique_id=1896114531]
+transform = Transform3D(0.8958194, 0.4196626, -0.14625819, -0.1190036, 0.54359615, 0.8308679, 0.42818964, -0.7269021, 0.53690517, 9.242825, 11.231762, -2.5796976)
+bone_name = "#top"
+bone_idx = 4
+
+[node name="Offset" type="Node3D" parent="ThornBlade/THORNBLADE/Skeleton3D/BladeTop" unique_id=180741999]
+transform = Transform3D(0.99999994, -7.450581e-09, 7.450581e-09, -1.1175871e-08, 1, 5.9604645e-08, -7.450581e-09, 2.9802322e-08, 1, 4.4703484e-08, -6, -1.7881393e-07)
+
+[node name="Blade" type="Node3D" parent="ThornBlade/THORNBLADE/Skeleton3D/BladeTop/Offset" unique_id=939844299 node_paths=PackedStringArray("blade_target")]
+transform = Transform3D(1, -3.7252903e-09, -1.4901161e-08, 0, 1, 0, 7.450581e-09, 0, 1, 0, 0, 0)
+script = ExtResource("4_oiaqn")
+blade_target = NodePath("..")
+impact_scene = ExtResource("5_kh5y5")
+world_mask = 2
+metadata/_custom_type_script = "uid://ctgxvt831702x"
+
+[node name="GPUTrail3D" type="GPUParticles3D" parent="ThornBlade/THORNBLADE/Skeleton3D/BladeTop/Offset/Blade" unique_id=293796948]
+transform = Transform3D(6, 8.195639e-08, 2.9802322e-08, -8.940697e-08, 6.0000005, 0, -1.1920929e-07, 2.3841858e-07, 6, 0, 4, 0)
+layers = 2
+amount = 75
+lifetime = 75.0
+explosiveness = 1.0
+fixed_fps = 143
+process_material = SubResource("ShaderMaterial_qkxmn")
+draw_pass_1 = SubResource("QuadMesh_uf82v")
+script = ExtResource("6_a2v7o")
+length = 75
+length_seconds = 0.5244755244755245
+texture = ExtResource("5_0aj8g")
+color_ramp = SubResource("GradientTexture1D_0i88t")
+curve = SubResource("CurveTexture_0xuw0")
+vertical_texture = true
+_defaults_have_been_set = true
+metadata/_custom_type_script = "uid://d5uy3jx36tvx"
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1244542651]
+root_node = NodePath("../ThornBlade")
+callback_mode_discrete = 0
+tree_root = SubResource("AnimationNodeStateMachine_263ot")
+anim_player = NodePath("../ThornBlade/AnimationPlayer")
+parameters/conditions/draw = false
+parameters/conditions/holster = false
+parameters/Idle/conditions/is_attacking = false
+parameters/Idle/conditions/is_not_attacking = false
+
+[node name="Ready" type="AudioStreamPlayer3D" parent="." unique_id=620914163]
+stream = ExtResource("3_8ov78")
+bus = &"Effects"
+
+[node name="Away" type="AudioStreamPlayer3D" parent="." unique_id=1845356301]
+stream = ExtResource("4_4awfd")
+bus = &"Effects"
+
+[node name="Attack" type="AudioStreamPlayer3D" parent="." unique_id=2103181027]
+stream = ExtResource("5_4awfd")
+bus = &"Effects"
+
+[editable path="ThornBlade"]

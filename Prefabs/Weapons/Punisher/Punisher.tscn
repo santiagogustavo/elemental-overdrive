@@ -1,0 +1,522 @@
+[gd_scene format=3 uid="uid://8a6koycrufo"]
+
+[ext_resource type="Script" uid="uid://busy6rbb605wt" path="res://Scripts/Weapon.gd" id="1_lebjj"]
+[ext_resource type="PackedScene" uid="uid://cr8midvsiyvns" path="res://Models/Punisher.glb" id="2_b0u3s"]
+[ext_resource type="Animation" uid="uid://bxgkfvn3dpqo8" path="res://Animations/Weapons/Punisher/AttackA.anim" id="3_8mivp"]
+[ext_resource type="Script" uid="uid://ctgxvt831702x" path="res://Scripts/Blade.gd" id="3_aq12h"]
+[ext_resource type="Animation" uid="uid://dwfdvpbtqebf3" path="res://Animations/Weapons/Punisher/AttackC.anim" id="4_agfy3"]
+[ext_resource type="PackedScene" uid="uid://c1qpq8aecnyb7" path="res://Prefabs/Weapons/ThornBlade/ThornBladeHit.tscn" id="4_ykbx8"]
+[ext_resource type="Animation" uid="uid://fh5l73tqa0by" path="res://Animations/Weapons/Punisher/Away.anim" id="5_aq12h"]
+[ext_resource type="Shader" uid="uid://dfp64qj12vy1p" path="res://addons/gputrail/shaders/trail.gdshader" id="5_fwbij"]
+[ext_resource type="Shader" uid="uid://1cpiujcq4qbx" path="res://addons/gputrail/shaders/trail_draw_pass.gdshader" id="6_s3ovf"]
+[ext_resource type="Animation" uid="uid://c88i12hw4k7sp" path="res://Animations/Weapons/Punisher/Ready.anim" id="6_ykbx8"]
+[ext_resource type="Texture2D" uid="uid://dv5py2u2nl55u" path="res://Textures/Punisher/PUNTRAIL.DTX.png" id="7_arbfs"]
+[ext_resource type="Animation" uid="uid://binsdn6bn766r" path="res://Animations/Weapons/Punisher/RestA.anim" id="7_pi7vr"]
+[ext_resource type="Script" uid="uid://d5uy3jx36tvx" path="res://addons/gputrail/GPUTrail3D.gd" id="8_qw6iv"]
+[ext_resource type="AudioStream" uid="uid://ci1qgxxi24qn4" path="res://Sounds/Weapons/Punisher/ATTACK.WAV" id="14_s3ovf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_srhhl"]
+shader = ExtResource("5_fwbij")
+
+[sub_resource type="Gradient" id="Gradient_cioqq"]
+colors = PackedColorArray(1, 1, 1, 0.5882353, 0, 0, 0, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0i88t"]
+gradient = SubResource("Gradient_cioqq")
+
+[sub_resource type="Curve" id="Curve_qeeqs"]
+bake_resolution = 16
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mkefa"]
+curve = SubResource("Curve_qeeqs")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_422qc"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("6_s3ovf")
+shader_parameter/tex = ExtResource("7_arbfs")
+shader_parameter/mask_strength = 1.0
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/color_ramp = SubResource("GradientTexture1D_0i88t")
+shader_parameter/curve = SubResource("CurveTexture_mkefa")
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 45
+
+[sub_resource type="QuadMesh" id="QuadMesh_geedv"]
+material = SubResource("ShaderMaterial_422qc")
+
+[sub_resource type="Animation" id="Animation_8mivp"]
+resource_name = "Idle"
+length = 0.1
+tracks/0/type = "position_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("PUNISHERA/Skeleton3D:d_Punisher")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.047837313, 0.283018, -0.010580178)
+tracks/1/type = "position_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("PUNISHERA/Skeleton3D:d_R_Arm")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.047837313, 0.283018, -0.010580178)
+tracks/2/type = "blend_shape"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("PUNISHERA/Skeleton3D/Piece:AttackA|0")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0)
+tracks/3/type = "blend_shape"
+tracks/3/imported = true
+tracks/3/enabled = true
+tracks/3/path = NodePath("PUNISHERA/Skeleton3D/Piece:AttackA|1")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0)
+tracks/4/type = "blend_shape"
+tracks/4/imported = true
+tracks/4/enabled = true
+tracks/4/path = NodePath("PUNISHERA/Skeleton3D/Piece:AttackA|2")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, 0)
+tracks/5/type = "blend_shape"
+tracks/5/imported = true
+tracks/5/enabled = true
+tracks/5/path = NodePath("PUNISHERA/Skeleton3D/Piece:AttackA|3")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0)
+tracks/6/type = "blend_shape"
+tracks/6/imported = true
+tracks/6/enabled = true
+tracks/6/path = NodePath("PUNISHERA/Skeleton3D/Piece:AttackA|4")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, 0)
+tracks/7/type = "blend_shape"
+tracks/7/imported = true
+tracks/7/enabled = true
+tracks/7/path = NodePath("PUNISHERA/Skeleton3D/Piece:AttackA|5")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 0)
+tracks/8/type = "blend_shape"
+tracks/8/imported = true
+tracks/8/enabled = true
+tracks/8/path = NodePath("PUNISHERA/Skeleton3D/Piece:AttackA|6")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = PackedFloat32Array(0, 1, 0)
+tracks/9/type = "blend_shape"
+tracks/9/imported = true
+tracks/9/enabled = true
+tracks/9/path = NodePath("PUNISHERA/Skeleton3D/Piece:AttackA|7")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = PackedFloat32Array(0, 1, 0)
+tracks/10/type = "blend_shape"
+tracks/10/imported = true
+tracks/10/enabled = true
+tracks/10/path = NodePath("PUNISHERA/Skeleton3D/Piece:AttackC|0")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = PackedFloat32Array(0, 1, 0)
+tracks/11/type = "blend_shape"
+tracks/11/imported = true
+tracks/11/enabled = true
+tracks/11/path = NodePath("PUNISHERA/Skeleton3D/Piece:AttackC|1")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = PackedFloat32Array(0, 1, 0)
+tracks/12/type = "blend_shape"
+tracks/12/imported = true
+tracks/12/enabled = true
+tracks/12/path = NodePath("PUNISHERA/Skeleton3D/Piece:AttackC|2")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = PackedFloat32Array(0, 1, 0)
+tracks/13/type = "blend_shape"
+tracks/13/imported = true
+tracks/13/enabled = true
+tracks/13/path = NodePath("PUNISHERA/Skeleton3D/Piece:AttackC|3")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = PackedFloat32Array(0, 1, 0)
+tracks/14/type = "blend_shape"
+tracks/14/imported = true
+tracks/14/enabled = true
+tracks/14/path = NodePath("PUNISHERA/Skeleton3D/Piece:AttackC|4")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = PackedFloat32Array(0, 1, 0)
+tracks/15/type = "blend_shape"
+tracks/15/imported = true
+tracks/15/enabled = true
+tracks/15/path = NodePath("PUNISHERA/Skeleton3D/Piece:AttackC|5")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = PackedFloat32Array(0, 1, 0)
+tracks/16/type = "blend_shape"
+tracks/16/imported = true
+tracks/16/enabled = true
+tracks/16/path = NodePath("PUNISHERA/Skeleton3D/Piece:AttackC|6")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = PackedFloat32Array(0, 1, 0)
+tracks/17/type = "blend_shape"
+tracks/17/imported = true
+tracks/17/enabled = true
+tracks/17/path = NodePath("PUNISHERA/Skeleton3D/Piece:Away|0")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = PackedFloat32Array(0, 1, 0)
+tracks/18/type = "blend_shape"
+tracks/18/imported = true
+tracks/18/enabled = true
+tracks/18/path = NodePath("PUNISHERA/Skeleton3D/Piece:Away|1")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = PackedFloat32Array()
+tracks/19/type = "blend_shape"
+tracks/19/imported = true
+tracks/19/enabled = true
+tracks/19/path = NodePath("PUNISHERA/Skeleton3D/Piece:Ready|0")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = PackedFloat32Array(0, 1, 0)
+tracks/20/type = "blend_shape"
+tracks/20/imported = true
+tracks/20/enabled = true
+tracks/20/path = NodePath("PUNISHERA/Skeleton3D/Piece:Ready|1")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = PackedFloat32Array(0, 1, 0.049900174)
+tracks/21/type = "blend_shape"
+tracks/21/imported = true
+tracks/21/enabled = true
+tracks/21/path = NodePath("PUNISHERA/Skeleton3D/Piece:Ready|2")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = PackedFloat32Array(0, 1, 0.9500998)
+tracks/22/type = "blend_shape"
+tracks/22/imported = true
+tracks/22/enabled = true
+tracks/22/path = NodePath("PUNISHERA/Skeleton3D/Piece:RestA|0")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = PackedFloat32Array(0, 1, 0)
+tracks/23/type = "blend_shape"
+tracks/23/imported = true
+tracks/23/enabled = true
+tracks/23/path = NodePath("PUNISHERA/Skeleton3D/Piece:RestA|1")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = PackedFloat32Array(0, 1, 0)
+tracks/24/type = "blend_shape"
+tracks/24/imported = true
+tracks/24/enabled = true
+tracks/24/path = NodePath("PUNISHERA/Skeleton3D/Piece:RestA|2")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = PackedFloat32Array(0, 1, 0)
+tracks/25/type = "blend_shape"
+tracks/25/imported = true
+tracks/25/enabled = true
+tracks/25/path = NodePath("PUNISHERA/Skeleton3D/Piece:RestA|3")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = PackedFloat32Array(0, 1, 0)
+tracks/26/type = "blend_shape"
+tracks/26/imported = true
+tracks/26/enabled = true
+tracks/26/path = NodePath("PUNISHERA/Skeleton3D/Piece:RestA|4")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/keys = PackedFloat32Array(0, 1, 0)
+tracks/27/type = "blend_shape"
+tracks/27/imported = true
+tracks/27/enabled = true
+tracks/27/path = NodePath("PUNISHERA/Skeleton3D/Piece:RestA|5")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/keys = PackedFloat32Array(0, 1, 0)
+tracks/28/type = "blend_shape"
+tracks/28/imported = true
+tracks/28/enabled = true
+tracks/28/path = NodePath("PUNISHERA/Skeleton3D/Piece:RestA|6")
+tracks/28/interp = 1
+tracks/28/loop_wrap = true
+tracks/28/keys = PackedFloat32Array(0, 1, 0)
+tracks/29/type = "blend_shape"
+tracks/29/imported = true
+tracks/29/enabled = true
+tracks/29/path = NodePath("PUNISHERA/Skeleton3D/Piece:RestA|7")
+tracks/29/interp = 1
+tracks/29/loop_wrap = true
+tracks/29/keys = PackedFloat32Array(0, 1, 0)
+tracks/30/type = "blend_shape"
+tracks/30/imported = true
+tracks/30/enabled = true
+tracks/30/path = NodePath("PUNISHERA/Skeleton3D/Piece:RestA|8")
+tracks/30/interp = 1
+tracks/30/loop_wrap = true
+tracks/30/keys = PackedFloat32Array(0, 1, 0)
+tracks/31/type = "blend_shape"
+tracks/31/imported = true
+tracks/31/enabled = true
+tracks/31/path = NodePath("PUNISHERA/Skeleton3D/Piece:RestA|9")
+tracks/31/interp = 1
+tracks/31/loop_wrap = true
+tracks/31/keys = PackedFloat32Array(0, 1, 0)
+tracks/32/type = "blend_shape"
+tracks/32/imported = true
+tracks/32/enabled = true
+tracks/32/path = NodePath("PUNISHERA/Skeleton3D/Piece:RestA|10")
+tracks/32/interp = 1
+tracks/32/loop_wrap = true
+tracks/32/keys = PackedFloat32Array(0, 1, 0)
+
+[sub_resource type="Animation" id="Animation_agfy3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PUNISHERA/Skeleton3D/Offset:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(4.4587464, 0.7637086, 4)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PUNISHERA/Skeleton3D/Offset/Blade/GPUTrail3D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PUNISHERA/Skeleton3D/Offset:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.67024994, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Attack:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("PUNISHERA/Skeleton3D/Offset/Blade/OmniLight3D:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("PUNISHERA/Skeleton3D/Offset/Blade/OmniLight3D:light_energy")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a34ty"]
+_data = {
+&"AttackA": ExtResource("3_8mivp"),
+&"AttackC": ExtResource("4_agfy3"),
+&"Away": ExtResource("5_aq12h"),
+&"Idle": SubResource("Animation_8mivp"),
+&"RESET": SubResource("Animation_agfy3"),
+&"Ready": ExtResource("6_ykbx8"),
+&"RestA": ExtResource("7_pi7vr")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8mivp"]
+animation = &"Away"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_agfy3"]
+animation = &"AttackA"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ykbx8"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pi7vr"]
+animation = &"RestA"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_s3ovf"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_arbfs"]
+advance_mode = 2
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qw6iv"]
+break_loop_at_end = true
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_srhhl"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_agfy3"]
+states/AttackA/node = SubResource("AnimationNodeAnimation_agfy3")
+states/AttackA/position = Vector2(503, -53)
+states/Idle/node = SubResource("AnimationNodeAnimation_ykbx8")
+states/Idle/position = Vector2(503, 100)
+states/RestA/node = SubResource("AnimationNodeAnimation_pi7vr")
+states/RestA/position = Vector2(688, 19)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_s3ovf"), "Idle", "AttackA", SubResource("AnimationNodeStateMachineTransition_arbfs"), "AttackA", "RestA", SubResource("AnimationNodeStateMachineTransition_qw6iv"), "RestA", "Idle", SubResource("AnimationNodeStateMachineTransition_srhhl")]
+graph_offset = Vector2(2, -83)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_aq12h"]
+animation = &"Ready"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ykbx8"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pi7vr"]
+advance_mode = 2
+advance_condition = &"draw"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7rtht"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fwbij"]
+break_loop_at_end = true
+advance_mode = 2
+advance_condition = &"holster"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0i88t"]
+states/Away/node = SubResource("AnimationNodeAnimation_8mivp")
+states/Away/position = Vector2(456, -38)
+states/Idle/node = SubResource("AnimationNodeStateMachine_agfy3")
+states/Idle/position = Vector2(673, 100)
+states/Ready/node = SubResource("AnimationNodeAnimation_aq12h")
+states/Ready/position = Vector2(456, 100)
+transitions = ["Start", "Ready", SubResource("AnimationNodeStateMachineTransition_ykbx8"), "Away", "Ready", SubResource("AnimationNodeStateMachineTransition_pi7vr"), "Ready", "Idle", SubResource("AnimationNodeStateMachineTransition_7rtht"), "Idle", "Away", SubResource("AnimationNodeStateMachineTransition_fwbij")]
+graph_offset = Vector2(34, -68)
+
+[node name="Punisher" type="Node3D" unique_id=2054345609 node_paths=PackedStringArray("blades")]
+visible = false
+script = ExtResource("1_lebjj")
+blades = [NodePath("Punisher/PUNISHERA/Skeleton3D/Offset/Blade")]
+metadata/_custom_type_script = "uid://busy6rbb605wt"
+
+[node name="Punisher" parent="." unique_id=241419770 instance=ExtResource("2_b0u3s")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Punisher/PUNISHERA" parent_id_path=PackedInt32Array(241419770, 639882133) index="0" unique_id=236410650]
+bones/1/position = Vector3(6.705227e-09, 0.31816077, 2.5426112e-09)
+bones/3/position = Vector3(6.705227e-09, 0.31816077, 2.5426112e-09)
+
+[node name="Piece" parent="Punisher/PUNISHERA/Skeleton3D" index="0" unique_id=1172057085]
+layers = 2
+blend_shapes/AttackA|0 = 1.0
+
+[node name="Offset" type="Node3D" parent="Punisher/PUNISHERA/Skeleton3D" index="1" unique_id=2136671448]
+transform = Transform3D(0.78366613, 0, 0.6211816, 0, 1, 0, -0.6211816, 0, 0.78366613, 4.4587464, 0.7637086, 4)
+
+[node name="Blade" type="Node3D" parent="Punisher/PUNISHERA/Skeleton3D/Offset" unique_id=422971855 node_paths=PackedStringArray("blade_target")]
+script = ExtResource("3_aq12h")
+blade_target = NodePath("..")
+impact_scene = ExtResource("4_ykbx8")
+metadata/_custom_type_script = "uid://ctgxvt831702x"
+
+[node name="GPUTrail3D" type="GPUParticles3D" parent="Punisher/PUNISHERA/Skeleton3D/Offset/Blade" unique_id=1344258921]
+transform = Transform3D(-6.556708e-08, 1.5, 0, -1.5, -6.556708e-08, 0, 0, 0, 1.5, -0.12775306, 5.584262e-09, -0.49155238)
+visible = false
+layers = 2
+amount = 50
+lifetime = 50.0
+explosiveness = 1.0
+fixed_fps = 143
+process_material = SubResource("ShaderMaterial_srhhl")
+draw_pass_1 = SubResource("QuadMesh_geedv")
+script = ExtResource("8_qw6iv")
+length = 50
+length_seconds = 0.34965034965034963
+texture = ExtResource("7_arbfs")
+color_ramp = SubResource("GradientTexture1D_0i88t")
+curve = SubResource("CurveTexture_mkefa")
+vertical_texture = true
+billboard = true
+_defaults_have_been_set = true
+metadata/_custom_type_script = "uid://d5uy3jx36tvx"
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Punisher/PUNISHERA/Skeleton3D/Offset/Blade" unique_id=1174627930]
+visible = false
+layers = 3
+light_color = Color(1, 0.8352941, 0, 1)
+light_energy = 0.0
+omni_range = 20.0
+omni_attenuation = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Punisher" unique_id=145931335]
+libraries/ = SubResource("AnimationLibrary_a34ty")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1872359722]
+root_node = NodePath("../Punisher")
+callback_mode_discrete = 0
+tree_root = SubResource("AnimationNodeStateMachine_0i88t")
+anim_player = NodePath("../Punisher/AnimationPlayer")
+parameters/conditions/draw = false
+parameters/conditions/holster = false
+parameters/Idle/conditions/is_attacking = false
+
+[node name="Attack" type="AudioStreamPlayer3D" parent="." unique_id=218634148]
+stream = ExtResource("14_s3ovf")
+bus = &"Effects"
+
+[editable path="Punisher"]
